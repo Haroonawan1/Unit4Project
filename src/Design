@@ -1,0 +1,71 @@
+WildWestOutlaw class
+
+Instance Variables:
+    private String name - this variable represents the name of the character the user controls
+    private int health - this variable represents the health of the character the user controls
+    private int money - this variable represents the money of the character the user controls
+    private int honor - this variable represents how honorable the character the uer controls is
+    private int day - this variable represents the current day
+    private int saved - this variable represents how many gang members have been saved
+    private boolean dead - this variable represents if the user is dead
+    private int damage - this variable represents the current damage the user does
+
+Constructor:
+    public WildWestOutlaw(String n)
+        The constructor will take n and assign it to the instance variable name. It will then assign a default value to the variable health, money, honor,
+        day, saved, and dead.
+
+Methods:
+    public String help()
+        This method will print a string informing the user of what can be done in the game to get them started.
+
+    public boolean getDead()
+        The method returns if the user is dead or not.
+
+    public String stageCoach(int x)
+        The method will take a integer x, and use it to determine how easily the user robs a stagecoach and how many people the user will fight. The money gotten
+        from the robbery is returned as a string with the information about the crime. Fights are simulated using the fight() method.
+
+    public String train(int x)
+        The method will take a integer x, and use it to determine how easily the user robs a train and how many people the user will fight. The money gotten
+        from the robbery is returned as an integer. Fights are simulated using the fight() method.
+
+    public String crime(String s)
+        This method will take a string, s, which will determine which crime the user wants to do. The three crimes consist of robbing a stagecoach, robbing a train,
+        and robbing a bank. Crime will decrease honor. A string containing the results of the crime chosen will be returned and the variable money will be updated
+
+    public void goodDeed(String s)
+        This method will take a string, s, which will determine which good deed the user wants to do. The three good deeds consist of giving someone a ride
+        home, intervening in a fight, and giving money to the poor. These will increase honor. There is a chance doing a good deed will allow the user to find
+        a hint, if so the hint() method runs.
+
+    public String hint()
+        The method will give the user a hint about how the game works which can aid them in gaining more money or having a better ending.
+
+    public String fight(int x)
+        This method contains four enemies the user can fight including their health and attack. The method will take x and will use the number to determine how
+        many people the character will fight. Each fight will be done using math in a turn based and the enemy will be selected by random. The results of each fight
+        will be a added to a string which will then be returned. If the user's health reaches 0 and they die, the method will stop early.
+
+    public void bounty()
+        This method will print out information about the four gang members that are currently in jail such as how much it cost to pay their bounty and how many
+        days remain until they are executed. If the user has enough money they will be prompted to pay the bounty of a member of the gang and if they do the
+        variable saved will be increased.
+
+    public          shop
+
+    public String end()
+        The method will return a string which has details containing the ending of the game. The ending which is selected and displayed will be determined by how many
+        members the user has saved and their honor. There are unique ending for cases such as the user dying due to having no remaining health and the user selecting to
+        end the game.
+
+
+WildWestOutlawRunner class
+Step 1: An object of the Scanner class will be made to get user input
+Step 2: The user will asked if they want to play, the program will end if they say no and if they say yes they will be asked to enter a name
+Step 3: An object of the WildWestOutlaw class will be made using the name entered by the user
+Step 4: A while loop will be made and will continue to iterate until the user is dead or doesn't want to play
+Step 5: In the while loop the user will be prompted to enter an input which will be saved as variable action
+Step 6: The variable action will determine if help(), crime(), goodDeed(), or shop() runs
+Step 7: bounty() will run
+Step 8: If the player decides to stop playing, dies, or completes the game, end() will run
