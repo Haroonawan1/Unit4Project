@@ -22,17 +22,23 @@ Methods:
     public boolean getDead()
         The method returns if the user is dead or not.
 
-    public String stageCoach(int x)
-        The method will take a integer x, and use it to determine how easily the user robs a stagecoach and how many people the user will fight. The money gotten
-        from the robbery is returned as a string with the information about the crime. Fights are simulated using the fight() method.
+    public String stageCoach()
+        The method will use Math.random() to determine how easily the user robs a stagecoach and how many people the user will fight. The money gotten
+        from the robbery is returned as a string with the information about the crime. Fights are simulated using the fight() method. Crime will decrease honor.
 
-    public String train(int x)
+    public String train(String t)
+        The method will use Math.random() and t to determine if the user finds a train. Math.random() will be used to determine how many people the user will fight.
+        and how much money is found. The money found from the robbery is returned as a string with the information about the crime. Fights are simulated using the
+        fight() method. Crime will decrease honor.
+
+    public String bank()
         The method will take a integer x, and use it to determine how easily the user robs a train and how many people the user will fight. The money gotten
-        from the robbery is returned as an integer. Fights are simulated using the fight() method.
+        from the robbery is returned as a string with the information about the crime. Fights are simulated using the fight() method. Crime will decrease honor.
 
-    public String crime(String s)
-        This method will take a string, s, which will determine which crime the user wants to do. The three crimes consist of robbing a stagecoach, robbing a train,
-        and robbing a bank. Crime will decrease honor. A string containing the results of the crime chosen will be returned and the variable money will be updated
+    public String crime(int x, String t)
+        This method will take a int, x, which will determine which crime the user wants to do and string, t, to see what time the user will do the crime. The three
+        crimes consist of robbing a stagecoach, robbing a train, and robbing a bank. A string containing the results of the crime chosen will be returned and the variable
+        money will be updated.
 
     public void goodDeed(String s)
         This method will take a string, s, which will determine which good deed the user wants to do. The three good deeds consist of giving someone a ride
