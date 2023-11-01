@@ -58,7 +58,9 @@ Methods:
         days remain until they are executed. If the user has enough money they will be prompted to pay the bounty of a member of the gang and if they do the
         variable saved will be increased.
 
-    public          shop
+    public String shop()
+        The method will allow the user to use money have have earned and buy upgrades for themselves, the upgrades will take away money and increase certain instance
+        variables that were set to default values such as health and damage.
 
     public String end()
         The method will return a string which has details containing the ending of the game. The ending which is selected and displayed will be determined by how many
