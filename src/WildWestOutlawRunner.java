@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class WildWestOutlawRunner {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        WildWestOutlaw outlaw = new WildWestOutlaw("Haroon");
+        WildWestOutlaw outlaw = new WildWestOutlaw("har");
         String name = outlaw.getName();
 
         System.out.println("_________________________________________________| Wild West Outlaw |_________________________________________________________");
@@ -15,7 +15,7 @@ public class WildWestOutlawRunner {
             if (action.equals("1")){
                 System.out.print("\n   What crime do you want to commit\n     - 1 for stagecoach robbery\n     - 2 for train robbery\n     - 3 for bank robbery\n   > ");
                 String robberyChoice = s.nextLine();
-                System.out.print("   What time will you attempt this (XX:XX format, hours only, military time): ");
+                System.out.print("\n   What time will you attempt this: \n   (hours only, military time, example: 09:00)\n   >  ");
                 String time = s.nextLine();
                 System.out.println();
                 System.out.println(outlaw.crime(Integer.parseInt(robberyChoice), time));
@@ -24,6 +24,24 @@ public class WildWestOutlawRunner {
 
             }
             else if (action.equals("3")){
+                System.out.println("           .&@&(,------------ %@@@*            ,@&&.------------.(@&&/           ");
+                System.out.println("        &                           .&&   &&                            @%      ");
+                System.out.println("      @ &   Weapons:                    @                               @ /%#   ");
+                System.out.println("     #@ @   Small Revolver     -   50   @                               @ .&#   ");
+                System.out.println("     #& &   Medium Revolver    -   75   &                               @ (%#   ");
+                System.out.println("     #& &   Big Revolver       -  150   &                               @  &#   ");
+                System.out.println("     #& &                               &                               @  &#   ");
+                System.out.println("     #& &   Small Rifle        -  300   &                               @  &#   ");
+                System.out.println("     #& &   Medium Rifle       -  675   &                               @  &#   ");
+                System.out.println("     #& &   Big Rifle          -  955   &                               @  &#   ");
+                System.out.println("     #& &                               &                               @  &#   ");
+                System.out.println("     #& &   Small Shotgun      -  7500  &                               @  &#   ");
+                System.out.println("     #& &   Medium Shotgun     - 15000  &                               @  &#   ");
+                System.out.println("     #& &   Big Shotgun        - 25000  &                               @  &#   ");
+                System.out.println("     #& &                               &                               @  &#   ");
+                System.out.println("     #@ @.     #@&&&&&&&@@&&@#     @&.  &  /&     &@&&%########%@&&#      &#/   ");
+                System.out.println("     #& @@&####*              (##&@&   &&&   @&(##*                 (##%&@&#/   ");
+                System.out.println("     ###/                           ##&&&@&##(                            ,#.   ");
 
             }
             else if (action.equals("4")){
@@ -33,7 +51,7 @@ public class WildWestOutlawRunner {
                 System.out.println(outlaw.help());
             }
             else if (action.equals("6")){
-
+                System.out.println(outlaw.ending("ended early"));
             }
             else {
                 System.out.println("\n   That is not an acceptable input");

@@ -1,5 +1,3 @@
-import javax.print.attribute.standard.PrinterMakeAndModel;
-
 public class WildWestOutlaw {
     private String name;
     private int health;
@@ -53,7 +51,8 @@ public class WildWestOutlaw {
 
     public String fight(int x){
         String str = "";
-        while (x > 0){
+        boolean done = false;
+        while (x > 0 && !gameOver){
             int bandit = 50;
             int lawEnforcer = 75;
             int bountyHunter = 100;
@@ -69,8 +68,8 @@ public class WildWestOutlaw {
                     str += "   You won your fight against the Bandit!\n   Remaining Health: " + health + "\n";
                 }
                 if (health <= 0){
+                    str += ending("died in battle");
                     gameOver = true;
-                    //call ending(x), x is the parameter that prints death in battle ending
                 }
             }
             if (random == 2){
@@ -83,8 +82,8 @@ public class WildWestOutlaw {
                     str += "   You won your fight against the Law Enforcer!\n   Remaining Health: " + health + "\n";
                 }
                 if (health <= 0){
+                    str += ending("died in battle");
                     gameOver = true;
-                    //call ending(x), x is the parameter that prints death in battle ending
                 }
             }
             if (random == 3){
@@ -97,8 +96,8 @@ public class WildWestOutlaw {
                     str += "   You won your fight against the Bounty Hunter!\n   Remaining Health: " + health + "\n";
                 }
                 if (health <= 0){
+                    str += ending("died in battle");
                     gameOver = true;
-                    //call ending(x), x is the parameter that prints death in battle ending
                 }
             }
             x--;
@@ -134,8 +133,11 @@ public class WildWestOutlaw {
             moneyFound += 10;
         }
         honor -= 5;
-        money += moneyFound;
-        return str + "\n   Money found: " + moneyFound;
+        if (!gameOver) {
+            money += moneyFound;
+            str += "\n   Money Found: " + moneyFound;
+        }
+        return str;
     }
 
     public String train(String t){
@@ -169,8 +171,11 @@ public class WildWestOutlaw {
             str += "   You wait and wait but no train appears, you leave the tracks with nothing";
         }
         honor -= 10;
-        money += moneyFound;
-        return str + "\n   Money Found: " + moneyFound;
+        if (!gameOver) {
+            money += moneyFound;
+            str += "\n   Money Found: " + moneyFound;
+        }
+        return str;
     }
 
     public String bank(String t){
@@ -188,27 +193,30 @@ public class WildWestOutlaw {
             }
 
             if (random <= 4){
-                str += "You enter the bank and find ";
+                str += "   You enter the bank and find ";
                 moneyFound = (int) (Math.random() * 3000) + 1000;
                 str += fight(8 + x);
             }
             else if (random <= 8){
-                str += "";
+                str += "   ";
                 moneyFound = (int) (Math.random() * 2000) + 3000;
                 str += fight(10 + x);
             }
             else{
-                str += "";
+                str += "   ";
                 moneyFound = (int) (Math.random() * 5000) + 5000;
                 str += fight(12 + x);
             }
         }
         else {
-            str += "The bank is not open right now, you are unable to rob it, try again some other time.";
+            str += "   The bank is not open right now, you are unable to rob it, try again some other time.";
         }
         honor -= 20;
-        money += moneyFound;
-        return str + "\nMoney Found: " + moneyFound;
+        if (!gameOver) {
+            money += moneyFound;
+            str += "\n   Money Found: " + moneyFound;
+        }
+        return str;
     }
 
     public String crime(int x, String t){
@@ -226,10 +234,27 @@ public class WildWestOutlaw {
         return str;
     }
 
+
+
     public String shop(){
         String str = "";
+
+
         return str;
     }
 
 
+    public String ending(String x){
+        String str = "";
+        if (x.equals("died in battle")) {
+            str += "\n                                                    You died fighting";
+        }
+        if (x.equals("ended early")) {
+            str += "\n                                                  You ended your journey";
+            gameOver = true;
+        }
+        str += "\n                                             This concludes the legend of " + name;
+        str += "\n______________________________________________________________________________________________________________________________";
+        return str;
+    }
 }
