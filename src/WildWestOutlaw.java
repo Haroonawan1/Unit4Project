@@ -13,7 +13,7 @@ public class WildWestOutlaw {
         name = n;
         health = 100;
         maxHealth = 100;
-        money = 0;
+        money = 9999990;
         honor = 0;
         day = 1;
         saved = 0;
@@ -236,9 +236,153 @@ public class WildWestOutlaw {
 
 
 
-    public String shop(){
+    public String shop(String s){
         String str = "";
+        int coltCobra = 175;
+        int m1903SpringField = 955;
+        int browningAuto5 = 6500;
+        int elephantRifle = 15750;
+        int m198Howitzer = 112007;
 
+        int apple = 10;
+        int loafOfBread = 20;
+        int steak = 35;
+
+        int clothArmor = 150;
+        int sturdyArmor = 1545;
+        int medievalArmor = 26740;
+
+        int preHealth = health;
+        int preDamage = damage;
+        int preMaxHealth = maxHealth;
+
+        if (s.equals("Apple")){
+            if (apple >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else {
+                money -= apple;
+                health += 15;
+                if (health > maxHealth){
+                    health = maxHealth;
+                }
+            }
+        }
+        else if (s.equals("Loaf of Bread")){
+            if (loafOfBread >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else {
+                money -= loafOfBread;
+                health += 45;
+                if (health > maxHealth){
+                    health = maxHealth;
+                }
+            }
+        }
+        else if (s.equals("Steak")){
+            if (steak >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else {
+                money -= steak;
+                health += 90;
+                if (health > maxHealth){
+                    health = maxHealth;
+                }
+            }
+        }
+
+        else if (s.equals("Cloth Armor")){
+            if (clothArmor >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else {
+                money -= clothArmor;
+                maxHealth += 35;
+            }
+        }
+        else if (s.equals("Sturdy Armor")){
+            if (sturdyArmor >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else {
+                money -= sturdyArmor;
+                maxHealth += 55;
+            }
+        }
+        else if (s.equals("Medieval Armor")){
+            if (medievalArmor >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else {
+                money -= medievalArmor;
+                maxHealth += 65;
+            }
+        }
+
+        else if (s.equals("Colt Cobra")){
+            if (coltCobra >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else{
+                money -= coltCobra;
+                damage = 15;
+            }
+        }
+        else if (s.equals("M1903 Springfield")){
+            if (m1903SpringField >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else{
+                money -= m1903SpringField;
+                damage = 20;
+            }
+        }
+        else if (s.equals("Browning Auto-5")){
+            if (browningAuto5 >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else{
+                money -= browningAuto5;
+                damage = 25;
+            }
+        }
+        else if (s.equals("Elephant Rifle")){
+            if (elephantRifle >= money){
+                str += "   You do not have enough money to buy that item";
+            }
+            else{
+                money -= elephantRifle;
+                damage = 30;
+            }
+        }
+        else if (s.equals("M198 Howitzer")){
+            if (m198Howitzer >= money){
+                str += "   You do not have enough money to buy that item.";
+            }
+            else{
+                money -= m198Howitzer;
+                damage = 100;
+            }
+        }
+
+        else {
+            str += "   That is not an item on the catalogue";
+        }
+
+        if (str.equals("   You do not have enough money to buy that item.")){
+            str = str;
+        }
+        else if (s.equals("Apple") || s.equals("Loaf of Bread") || s.equals("Steak")){
+            str += "\n   Your previous health was " + preHealth + ".\n   Your current health is " + health + ".";
+        }
+        else if (s.equals("Cloth armor") || s.equals("Sturdy Armor") || s.equals("Medieval Armor")){
+            str += "\n   Your previous max health was " + preMaxHealth + ".\n   Your current health is " + maxHealth + ".";
+        }
+        else {
+            str += "\n   Your previous damage was " + preDamage + ".\n   Your current damage is " + damage + ".";
+        }
 
         return str;
     }
