@@ -9,16 +9,20 @@ public class WildWestOutlaw {
     private boolean gameOver;
     private int damage = 10;
 
+    Images i = new Images();
+
     public WildWestOutlaw (String n){
         name = n;
         health = 100;
         maxHealth = 100;
-        money = 9999990;
+        money = 99999990;
         honor = 0;
         day = 1;
         saved = 0;
         gameOver = false;
     }
+
+
 
     public String help(){
         String str = "   _____________________________________________________________________________________________________________________";
@@ -36,18 +40,24 @@ public class WildWestOutlaw {
         return gameOver;
     }
 
+
+
     public String getName(){
         return name;
     }
 
+
+
     public String getStats(){
-        String str = "   ____________________________\n";
-        str += "    Your current statistics:\n";
+        String str = "";
+        str += "\n    Your current statistics:\n";
         str += "    Health: " + health + "/" + maxHealth + "\n";
         str += "    Money: " + money + "\n    Honor: " + honor + "\n    Damage: " + damage + "\n    People Saved: " + saved;
         str += "\n   ____________________________";
         return str;
     }
+
+
 
     public String fight(int x){
         String str = "";
@@ -106,19 +116,20 @@ public class WildWestOutlaw {
     }
 
 
+
     public String stageCoach(){
-        String str = "";
+        String str = i.stageCoach();
         int moneyFound = 0;
         if ((int) (Math.random() * 10) + 1 > 3){
             int random = (int) (Math.random() * 10) + 1;
-            str += "   As you ride down a pathway you find a stagecoach.\n";
+            str += "\n   As you ride down a pathway you find a stagecoach.\n";
             if (random <= 4){
                 str += "   The stagecoach you find only has a driver and a few passengers, this should be an easy target, lucky you.\n";
                 moneyFound = (int) (Math.random() * 10) + 10;
                 str += fight(2);
             }
             else if (random <= 8){
-                str += "   The stagecoach is not unguarded but a few men should not be a problem for a legend like you.\n";
+                str += "\n   The stagecoach is not unguarded but a few men should not be a problem for a legend like you.\n";
                 moneyFound = (int) (Math.random() * 30) + 20;
                 str += fight(3);
             }
@@ -140,8 +151,11 @@ public class WildWestOutlaw {
         return str;
     }
 
+
+
     public String train(String t){
-        String str = "";
+        String str = i.train();
+
         int moneyFound = 0;
         if (t.equals("03:00") || t.equals("06:00") || t.equals("09:00") || t.equals("12:00") || t.equals("15:00") || t.equals("18:00") || t.equals("21:00") || t.equals("00:00")){
             int random = (int) (Math.random() * 10) + 1;
@@ -178,8 +192,10 @@ public class WildWestOutlaw {
         return str;
     }
 
+
+
     public String bank(String t){
-        String str = "";
+        String str = i.bank();
         String openTime = "08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00";
         int moneyFound = 0;
         int random = (int) (Math.random() * 10) + 1;
@@ -218,6 +234,8 @@ public class WildWestOutlaw {
         }
         return str;
     }
+
+
 
     public String crime(int x, String t){
         int moneyFound = 0;
@@ -261,6 +279,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
+                str += i.apple();
                 money -= apple;
                 health += 15;
                 if (health > maxHealth){
@@ -273,6 +292,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
+                str += i.bread();
                 money -= loafOfBread;
                 health += 45;
                 if (health > maxHealth){
@@ -285,6 +305,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
+                str += i.steak();
                 money -= steak;
                 health += 90;
                 if (health > maxHealth){
@@ -298,6 +319,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
+                str += i.clothArmor();
                 money -= clothArmor;
                 maxHealth += 35;
             }
@@ -307,6 +329,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
+                str += i.sturdyArmor();
                 money -= sturdyArmor;
                 maxHealth += 55;
             }
@@ -371,13 +394,13 @@ public class WildWestOutlaw {
             str += "   That is not an item on the catalogue";
         }
 
-        if (str.equals("   You do not have enough money to buy that item.")){
+        if (str.equals("   You do not have enough money to buy that item.") || str.equals("   That is not an item on the catalogue")){
             str = str;
         }
         else if (s.equals("Apple") || s.equals("Loaf of Bread") || s.equals("Steak")){
             str += "\n   Your previous health was " + preHealth + ".\n   Your current health is " + health + ".";
         }
-        else if (s.equals("Cloth armor") || s.equals("Sturdy Armor") || s.equals("Medieval Armor")){
+        else if (s.equals("Cloth Armor") || s.equals("Sturdy Armor") || s.equals("Medieval Armor")){
             str += "\n   Your previous max health was " + preMaxHealth + ".\n   Your current health is " + maxHealth + ".";
         }
         else {
@@ -386,6 +409,7 @@ public class WildWestOutlaw {
 
         return str;
     }
+
 
 
     public String ending(String x){
