@@ -1,6 +1,51 @@
 public class Images {
     public Images () {}
 
+    public String catalogue(){
+        return "                                                         ,,,,,,gggggggggggg,,,                                                       ,,,,,,,,,,,\n" +
+        "                                                 ,gpN*\"\"``                   `\"\"*MNgg,                                   ,,,gp&NM**\"*\"`'   ` `\"'\"\"\"*MNmg,\n" +
+        "                                             ,g@}@                                    \"\"MNwg,                     ,ggNM*\"'                               \"*Nwg,\n" +
+        "                                           jP% $ @              Weapons for Sale:           '\"*Nmg,         ,gmN*\"`            Food and Armor:                '*$Ng\n" +
+        "                                           ]C] $ @M%                                               \"*Ng,g@P*`                                                  $U[$BK\n" +
+        "                                           ]P] $P  $    Colt Cobra - 175 dollars - 15 damage           ]L      Apple - 10 dollar - Recovers 15 health          $ @]jK\n" +
+        "                                           ]@]P-  gP      Experience the legacy of American            ]L        Fresh and crunchy apples gathered from a      $ K]j@\n" +
+        "                                           ]@F   @F       craftsmanship Sleek, precise, and reliable,  ]L        local orchid.                                 $ K]jK\n" +
+        "                                           $\"  ]K]       a testament to Colt's excellence              ]P                                                      $ K]j@\n" +
+        "                                          @    @ ]                                                     ]P      Loaf of Bread - 20 dollars -Recovers 45 health  $ K$ @\n" +
+        "                                         @`   $  @F       M1903 Springfield - 955 dollars - 20 damage  ]P        Baked fresh every morning.                    $ P$ @\n" +
+        "                                        @    #\" ]$L  g@@   Discover the M1903 Springfield rifle.       ]L                                                      $]L$ @\n" +
+        "                                      ,@   ,@` )F]KgP ,F]   A timeless design and unmatched precision  ]L      Steak - 35 dollars - Recovers 90 health         $] $jK\n" +
+        "                                     ,@ ,,gP ,gF $P'%N\"]   embody Springfield's enduring legacy.       ]L       Made from some yummy cows, make sure to give   $] @]L\n" +
+        "                                     @    -\"%@,,@'    @F                                               ]L       the chef your compliments!                      $] @]\n" +
+        "                                    $`       ,@\"    ,@   Browning Auto-5 - 6500 dollars - 25 damage    ]P                                                       $]J@$\n" +
+        "                                    @       '\"     y@      Introducing the Browning Auto-5 shotgun     ]P     Cloth armor - 150 dollars - Max health +35        $]j@$\n" +
+        "                                   ]@             g@        a triumph of engineering. Its iconic       ]@        Lightweight and fashionable while still        @]j@$\n" +
+        "                                   ]P            ]@         humpback design and flawless performance    @        providing necessary protection                 @]jC$\n" +
+        "                                   $P           #MK         define Browning's legacy.                   @                                                       @]jP$\n" +
+        "                                   @            @ @                                                     @     Sturdy armor - 1545 dollars - Max Health + 55     @]]P$\n" +
+        "                                  ]@            @ @    Elephant Rifle - 15750 dollars - 30 damage       $        Tough and strong, made with leather and        @]]P$\n" +
+        "                                  @F           ]@ @      Unleash unparalleled power with our Elephant   $        chain-mail                                     jK]]P$\n" +
+        "                                 gP            @$ $      King rifle. Crafted for the mightiest pursuits,$                                                       ]g$jP$\n" +
+        "                               ,@\"            @L]F$     Command respect and conquer.                    $    Medieval armor - 26740 dollars - Max Health +65  ]@'\"\"\"\"@\n" +
+        "                             ,@P             gML]F$                                                     $        Self-explanatory                       ,g,   ]@      %p\n" +
+        "                           ,@P'            ,@@]P]P$F   M198 Howitzer - 112007 dollars - 100 damage      $                                              #FF*N, ]P\"**$,  ]g\n" +
+        "                         ,@P-           ,g@P]P]K]P]P     ???                                            $                 ,,,gggmm@NNMMMMMNNNmgwg,,,   ]w],,$N]MNwg %,  '@\n" +
+        "                         '             gP   ]P @]P]P   ,,,ggmNM***\"\"\"\"\"\"\"\"\"\"\"\"\"***MMNNmgg,,              @        ,,gpNM*\"\"`       ,,,,,,,,,,,,     `'\"\"*$ `- \"@g, ]g $   %g\n" +
+        "                                    ,@\"    ]K @]KJMM\"\"`  ,,gggmmNNNNNMMMMMMMMMNmwwg,,,,  `'**MNwg,     @   ,gN**`     ,,gmNM**\"\"''``'` ,, `,,\"```\"\"\"*Mm $,    %@%, @P     ]@\n" +
+        "                                    g@      ]K @ @ gmM**\",,,ggwwWmNNNNNNNNNNNmwwggg,,, `\"\"*MNNwg,  ^*Mwg@@P\"     ,gNM\"\" ,,ggpNNMM***\"*\"\"\"\"'''''\"\"\"\"**MM   %w    ]g]N`       ]L\n" +
+        "                                  ,@\"       ]K $  ,gmM*\"\"`  ,,,,ggggggggggggg,,,,     '\"\"**Nmgg,-\"\"*        ,mM*',ggN*\"\"-                ,,,,,,,,,         ]g    ]@         ]@\n" +
+        "                                 g@         ]@ `  ,,g@NMP*\"\"`\"`'             `\"`\"\"\"**MMN@ggg,, `'             m*\"    ,,,,ggmNMMM**\"\"\"\"\"\"'```````'\"\"\"\"\"**MNNmg@    `          $\n" +
+        "                               ,@C                                                           `*%MN@          mmmmMM*\"\"`                                      ]@              ]@\n" +
+        "                              g@                                                                  Mmmmwggm,gmM                                               $L              @\n" +
+        "                            ,@F                                                                                                                               @              @L\n" +
+        "                           g@                                                                                                                                %L            $@\n" +
+        "                         ,@P                                                                                                                                  %g           @     \n" +
+        "                         ?                                                                                                                                     ]@          @\n" +
+        "                                                                                                                                                                '@C        @\n" +
+        "                                                                                                                                                                 $@        $r\n" +
+        "                                                                                                                                                                 $K        ]@\n\n";
+    }
+
     public String stageCoach(){
         return "                                                                           ..                                                                         \n" +
                 "                                                                 ....:::^^^^~~~!~!!~^^~!!~~~~^^^^^^::                                                 \n" +
