@@ -16,13 +16,22 @@ public class WildWestOutlawRunner {
             if (action.equals("1")){
                 System.out.print("\n   What crime do you want to commit\n     - 1 for stagecoach robbery\n     - 2 for train robbery\n     - 3 for bank robbery\n   > ");
                 String robberyChoice = s.nextLine();
-                System.out.print("\n   What time will you attempt this: \n   (hours only, military time, example: 09:00)\n   >  ");
+                System.out.print("\n   What time will you attempt this: \n   (hours only, military time, example: 09:00)\n   > ");
                 String time = s.nextLine();
                 System.out.println();
                 System.out.println(outlaw.crime(Integer.parseInt(robberyChoice), time));
             }
             else if (action.equals("2")){
-
+                System.out.print("\n   What good deed do you want to attempt\n   - 1 for giving someone a ride home\n   - 2 for donating money to the poor\n   - 3 for stopping a fight\n   > ");
+                String goodDeedChoice = s.nextLine();
+                if (goodDeedChoice.equals("2")){
+                    System.out.print("   How much do you want to donate: ");
+                    int donation = Integer.parseInt(s.nextLine());
+                    System.out.println(outlaw.goodDeed(Integer.parseInt(goodDeedChoice), donation));
+                }
+                else {
+                    System.out.println(outlaw.goodDeed(Integer.parseInt(goodDeedChoice), 0));
+                }
             }
             else if (action.equals("3")){
                 System.out.println(i.catalogue());

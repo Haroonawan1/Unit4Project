@@ -57,7 +57,15 @@ public class WildWestOutlaw {
         return str;
     }
 
-
+    public void setHonor(int x){
+        honor += x;
+        if (honor > 100){
+            honor = 100;
+        }
+        else if (honor < -100){
+            honor = -100;
+        }
+    }
 
     public String fight(int x){
         String str = "";
@@ -138,12 +146,13 @@ public class WildWestOutlaw {
                 moneyFound = (int) (Math.random() * 50) + 50;
                 str += fight(4);
             }
+            setHonor(-5);
         }
         else {
             str += "   You search for a stagecoach and find nothing interesting except for 10 dollars on the floor.";
             moneyFound += 10;
         }
-        honor -= 5;
+        setHonor(-3);
         if (!gameOver) {
             money += moneyFound;
             str += "\n   Money Found: " + moneyFound;
@@ -179,12 +188,12 @@ public class WildWestOutlaw {
                 moneyFound = (int) (Math.random() * 500) + 500;
                 str += fight(8);
             }
-
+            setHonor(-10);
         }
         else{
             str += "   You wait and wait but no train appears, you leave the tracks with nothing";
         }
-        honor -= 10;
+        setHonor(-5);
         if (!gameOver) {
             money += moneyFound;
             str += "\n   Money Found: " + moneyFound;
@@ -209,25 +218,26 @@ public class WildWestOutlaw {
             }
 
             if (random <= 4){
-                str += "   You enter the bank and find ";
+                str += "   You enter the bank and find that it is not that crowded, but of course still guarded.\n";
                 moneyFound = (int) (Math.random() * 3000) + 1000;
                 str += fight(8 + x);
             }
             else if (random <= 8){
-                str += "   ";
+                str += "   You enter and see the bank full of people, this will not be easy.\n";
                 moneyFound = (int) (Math.random() * 2000) + 3000;
                 str += fight(10 + x);
             }
             else{
-                str += "   ";
+                str += "   The bank is full of guards right now, this usually means the bank is full of money too!\n";
                 moneyFound = (int) (Math.random() * 5000) + 5000;
                 str += fight(12 + x);
             }
+            setHonor(-20);
         }
         else {
             str += "   The bank is not open right now, you are unable to rob it, try again some other time.";
         }
-        honor -= 20;
+        setHonor(-10);
         if (!gameOver) {
             money += moneyFound;
             str += "\n   Money Found: " + moneyFound;
@@ -252,7 +262,85 @@ public class WildWestOutlaw {
         return str;
     }
 
+    public String hint(){
+        String str = "";
+        int random = (int) (Math.random() * 5) + 1;
+        if (random == 1){
+            str += "   The stranger says: Thank you! I am not sure if I should tell you this but the bank is usually least guarded at night.\n";
+        }
+        if (random == 2){
+            str += "   The stranger says: Thanks! Your end is affected by the actions you do.\n   You think: What a weirdo.\n";
+        }
+        if (random == 3){
+            str += "   The stranger says: I think some of your buddies are locked up right now. Helping them can make you more honorable.\n";
+        }
+        if (random == 4){
+            str += "   The stranger says: Attempting to do a crime is dishonorable, but not as dishonorable as carrying through with your intentions.\n";
+        }
+        if (random == 5){
+            str += "   The stranger says: Go touch grass\n   You think: What a weirdo\n";
+        }
+        return str;
+    }
 
+    public String giveARide(){
+        String str = "";
+        if ((int) (Math.random() * 10) + 1 >= 6){
+            str += "\n   You find someone in need of a ride home\n";
+            int random = (int) (Math.random() * 3) + 1;
+            if (random == 1){
+                str += "   The person thanks you for the ride and you go on with your day.\n";
+                str += hint();
+            }
+            if (random == 2){
+                int moneyLost = (int) (Math.random() * (money/5));
+                money -= moneyLost;
+                str += "   The person thank you for the ride but as you leave your pockets seem a little lighter.\n   Money lost: " + moneyLost + "\n";
+            }
+            if (random == 3){
+                str += "   The person gets on your horse... and then... kicks you off! You run after him and get into a fight!\n";
+                str += fight(1);
+            }
+            setHonor(10);
+        }
+        else {
+            str += "\n   You did not find anyone to help.";
+            setHonor(5);
+        }
+        return str;
+    }
+
+    public boolean donatePossible(int x){
+        if (x <= money){
+            money -= x;
+            return true;
+        }
+        return false;
+    }
+
+    public String giveMoneyToThePoor(int x){
+        String str = "";
+        return str;
+    }
+
+    public String stopAFight(){
+        String str = "";
+        return str;
+    }
+
+    public String goodDeed(int x, int m){
+        String str = "";
+        if (x == 1){
+            str = giveARide();
+        }
+        if (x == 2){
+            str = giveMoneyToThePoor(m);
+        }
+        if (x == 3){
+            str = stopAFight();
+        }
+        return str;
+    }
 
     public String shop(String s){
         String str = "";
@@ -279,7 +367,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                str += i.apple();
+                //str += i.apple();
                 money -= apple;
                 health += 15;
                 if (health > maxHealth){
@@ -292,7 +380,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                str += i.bread();
+                //str += i.bread();
                 money -= loafOfBread;
                 health += 45;
                 if (health > maxHealth){
@@ -305,7 +393,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                str += i.steak();
+                //str += i.steak();
                 money -= steak;
                 health += 90;
                 if (health > maxHealth){
@@ -319,7 +407,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                str += i.clothArmor();
+                //str += i.clothArmor();
                 money -= clothArmor;
                 maxHealth += 35;
             }
@@ -329,7 +417,7 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                str += i.sturdyArmor();
+                //str += i.sturdyArmor();
                 money -= sturdyArmor;
                 maxHealth += 55;
             }
@@ -409,6 +497,7 @@ public class WildWestOutlaw {
 
         return str;
     }
+
 
 
 
