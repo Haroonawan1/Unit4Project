@@ -49,7 +49,7 @@ public class WildWestOutlaw {
 
 
     public String getStats(){
-        String str = "";
+        String str = "\n   ____________________________";
         str += "\n    Your current statistics:\n";
         str += "    Health: " + health + "/" + maxHealth + "\n";
         str += "    Money: " + money + "\n    Honor: " + honor + "\n    Damage: " + damage + "\n    People Saved: " + saved;
@@ -151,8 +151,8 @@ public class WildWestOutlaw {
         else {
             str += "   You search for a stagecoach and find nothing interesting except for 10 dollars on the floor.";
             moneyFound += 10;
+            setHonor(-3);
         }
-        setHonor(-3);
         if (!gameOver) {
             money += moneyFound;
             str += "\n   Money Found: " + moneyFound;
@@ -192,8 +192,8 @@ public class WildWestOutlaw {
         }
         else{
             str += "   You wait and wait but no train appears, you leave the tracks with nothing";
+            setHonor(-5);
         }
-        setHonor(-5);
         if (!gameOver) {
             money += moneyFound;
             str += "\n   Money Found: " + moneyFound;
@@ -236,8 +236,8 @@ public class WildWestOutlaw {
         }
         else {
             str += "   The bank is not open right now, you are unable to rob it, try again some other time.";
+            setHonor(-10);
         }
-        setHonor(-10);
         if (!gameOver) {
             money += moneyFound;
             str += "\n   Money Found: " + moneyFound;
@@ -320,11 +320,46 @@ public class WildWestOutlaw {
 
     public String giveMoneyToThePoor(int x){
         String str = "";
+        if (donatePossible(x)){
+            str = "\n   You decide to donate " + x + " to the poor. You are thanked and honored.";
+            if (x > 10000){
+                setHonor(10);
+            }
+            else if (x > 1000){
+                setHonor(5);
+            }
+            else if (x > 100){
+                setHonor(3);
+            }
+            else {
+                setHonor(1);
+            }
+            if ((int) (Math.random() * 10) + 1 >= 8){
+                str += "\n   Before you get the chance to leave a homeless guy approaches you.\n";
+                str += hint();
+            }
+        }
+        else{
+            str += "\n   You do not have the amount of money you want to donate.";
+        }
         return str;
     }
 
     public String stopAFight(){
-        String str = "";
+        String str = "\n   As you walk down a street in town you see a fight going on an go to intervene.";
+        int random = (int) (Math.random() * 10) + 1;
+        if (random >= 8){
+            str += "\n   You are able to make the two men stop fighting pretty quickly. They both walk of angry.\n";
+        }
+        else if (random >= 5){
+            str += "\n   You break up the fight and help the man left on the floor, he is really beat up. Before you can leave he says something.\n";
+            str += hint();
+        }
+        else {
+            str += "\n   Both men decide to stop fighting with a little bit of convincing... and then decide to fight you!\n";
+            str += fight(2);
+        }
+        setHonor(8);
         return str;
     }
 
