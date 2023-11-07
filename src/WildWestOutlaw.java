@@ -40,12 +40,13 @@ public class WildWestOutlaw {
         return gameOver;
     }
 
-
-
-    public String getName(){
-        return name;
+    public int getDay(){
+        return day;
     }
 
+    public void increaseDay(){
+        day++;
+    }
 
 
     public String getStats(){
@@ -402,7 +403,6 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                //str += i.apple();
                 money -= apple;
                 health += 15;
                 if (health > maxHealth){
@@ -415,7 +415,6 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                //str += i.bread();
                 money -= loafOfBread;
                 health += 45;
                 if (health > maxHealth){
@@ -428,7 +427,6 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                //str += i.steak();
                 money -= steak;
                 health += 90;
                 if (health > maxHealth){
@@ -442,7 +440,6 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                //str += i.clothArmor();
                 money -= clothArmor;
                 maxHealth += 35;
             }
@@ -452,7 +449,6 @@ public class WildWestOutlaw {
                 str += "   You do not have enough money to buy that item";
             }
             else {
-                //str += i.sturdyArmor();
                 money -= sturdyArmor;
                 maxHealth += 55;
             }
@@ -534,6 +530,63 @@ public class WildWestOutlaw {
     }
 
 
+    public String payBounty(int x){
+        String str = "";
+        int member1 = 1250;
+        int member2 = 7500;
+        int member3 = 25000;
+        int member4 = 55000;
+
+        if (x == 1){
+            if (money < member1){
+                str += "   You do not have enough money to pay off this bounty";
+            }
+            else {
+                str += "   You buy the bounty of Member 1, he is very happy. You become more honorable";
+                money -= member1;
+                setHonor(25);
+                saved++;
+            }
+        }
+
+        if (x == 2){
+            if (money < member2){
+                str += "   You do not have enough money to pay off this bounty";
+            }
+            else {
+                str += "   You buy the bounty of Member 2, he is very happy. You become more honorable";
+                money -= member2;
+                setHonor(35);
+                saved++;
+            }
+        }
+
+        if (x == 3){
+            if (money < member3){
+                str += "   You do not have enough money to pay off this bounty";
+            }
+            else {
+                str += "   You buy the bounty of Member 3, he is very happy. You become more honorable";
+                money -= member3;
+                setHonor(50);
+                saved++;
+            }
+        }
+
+        if (x == 4){
+            if (money < member4){
+                str += "   You do not have enough money to pay off this bounty";
+            }
+            else {
+                str += "   You buy the bounty of Member 4, he is very happy. You become more honorable";
+                money -= member4;
+                setHonor(75);
+                saved++;
+            }
+        }
+
+        return str;
+    }
 
 
     public String ending(String x){
