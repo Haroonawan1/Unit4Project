@@ -14,6 +14,16 @@ public class WildWestOutlaw {
     private boolean member3Saved;
     private boolean member4Saved;
 
+    private boolean weapon1Bought;
+    private boolean weapon2Bought;
+    private boolean weapon3Bought;
+    private boolean weapon4Bought;
+    private boolean weapon5Bought;
+
+    private boolean armor1Bought;
+    private boolean armor2Bought;
+    private boolean armor3Bought;
+
     Images i = new Images();
 
     public WildWestOutlaw (String n){
@@ -31,6 +41,16 @@ public class WildWestOutlaw {
         member2Saved = false;
         member3Saved = false;
         member4Saved = false;
+
+        weapon1Bought = false;
+        weapon2Bought = false;
+        weapon3Bought = false;
+        weapon4Bought = false;
+        weapon5Bought = false;
+
+        armor1Bought = false;
+        armor2Bought = false;
+        armor3Bought = false;
     }
 
 
@@ -446,77 +466,114 @@ public class WildWestOutlaw {
             }
         }
 
-        else if (s.equals("Cloth Armor")){
+        else if (s.equals("Cloth armor")){
             if (clothArmor >= money){
                 str += "   You do not have enough money to buy that item";
+            }
+            else if (armor1Bought){
+                str += "\n   (You already bought this armor upgrade)";
             }
             else {
                 money -= clothArmor;
                 maxHealth += 35;
+                armor1Bought = true;
             }
         }
-        else if (s.equals("Sturdy Armor")){
-            if (sturdyArmor >= money){
+        else if (s.equals("Sturdy armor")){
+            if (armor2Bought){
+                str += "\n   (You already bought this armor upgrade)";
+            }
+            else if (sturdyArmor >= money){
                 str += "   You do not have enough money to buy that item";
             }
             else {
                 money -= sturdyArmor;
                 maxHealth += 55;
+                armor2Bought = true;
             }
         }
-        else if (s.equals("Medieval Armor")){
+        else if (s.equals("Medieval armor")){
             if (medievalArmor >= money){
                 str += "   You do not have enough money to buy that item";
+            }
+            else if (armor3Bought){
+                str += "\n   (You already bought this armor upgrade)";
             }
             else {
                 money -= medievalArmor;
                 maxHealth += 65;
+                armor3Bought = true;
             }
         }
 
         else if (s.equals("Colt Cobra")){
-            if (coltCobra >= money){
+            if (weapon1Bought){
+                str += "\n   (You already own this weapon and were not charged)";
+                damage = 15;
+            }
+            else if (coltCobra >= money){
                 str += "   You do not have enough money to buy that item";
             }
             else{
                 money -= coltCobra;
                 damage = 15;
+                weapon1Bought = true;
             }
         }
         else if (s.equals("M1903 Springfield")){
-            if (m1903SpringField >= money){
+            if (weapon2Bought){
+                str += "\n   (You already own this weapon and were not charged)";
+                damage = 20;
+            }
+            else if (m1903SpringField >= money){
                 str += "   You do not have enough money to buy that item";
             }
             else{
                 money -= m1903SpringField;
                 damage = 20;
+                weapon2Bought = true;
             }
         }
         else if (s.equals("Browning Auto-5")){
-            if (browningAuto5 >= money){
+            if (weapon3Bought){
+                str += "\n   (You already own this weapon and were not charged)";
+                damage = 25;
+            }
+            else if (browningAuto5 >= money){
                 str += "   You do not have enough money to buy that item";
             }
             else{
                 money -= browningAuto5;
                 damage = 25;
+                weapon3Bought = true;
             }
         }
         else if (s.equals("Elephant Rifle")){
-            if (elephantRifle >= money){
+            if (weapon4Bought){
+                str += "\n   (You already own this weapon and were not charged)";
+                damage = 30;
+            }
+            else if (elephantRifle >= money){
                 str += "   You do not have enough money to buy that item";
             }
             else{
                 money -= elephantRifle;
                 damage = 30;
+                weapon4Bought = true;
             }
         }
         else if (s.equals("M198 Howitzer")){
-            if (m198Howitzer >= money){
+            if (weapon5Bought){
+                str += "\n   (You already own this weapon and were not charged)";
+                damage = 100;
+            }
+            else if (m198Howitzer >= money){
                 str += "   You do not have enough money to buy that item.";
             }
             else{
                 money -= m198Howitzer;
                 damage = 100;
+                weapon5Bought = true;
             }
         }
 
@@ -530,7 +587,7 @@ public class WildWestOutlaw {
         else if (s.equals("Apple") || s.equals("Loaf of Bread") || s.equals("Steak")){
             str += "\n   Your previous health was " + preHealth + ".\n   Your current health is " + health + ".";
         }
-        else if (s.equals("Cloth Armor") || s.equals("Sturdy Armor") || s.equals("Medieval Armor")){
+        else if (s.equals("Cloth armor") || s.equals("Sturdy armor") || s.equals("Medieval armor")){
             str += "\n   Your previous max health was " + preMaxHealth + ".\n   Your current health is " + maxHealth + ".";
         }
         else {
@@ -571,7 +628,7 @@ public class WildWestOutlaw {
         }
 
         if (x == 2){
-            if (member1Saved){
+            if (member2Saved){
                 str += "   You have already paid this bounty";
             }
             else {
@@ -589,7 +646,7 @@ public class WildWestOutlaw {
         }
 
         if (x == 3){
-            if (member1Saved){
+            if (member3Saved){
                 str += "   You have already paid this bounty";
             }
             else {
@@ -607,7 +664,7 @@ public class WildWestOutlaw {
         }
 
         if (x == 4){
-            if (member1Saved){
+            if (member4Saved){
                 str += "   You have already paid this bounty";
             }
             else {

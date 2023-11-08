@@ -48,7 +48,7 @@ public class WildWestOutlawRunner {
             }
             else if (action.equals("4")){
                 System.out.println(i.jail());
-                System.out.print("   What would you like to do:\n   - 1 for pay a bounty\n   - 2 for break someone out (this is very difficult)\n   - 3 to go back\n   > ");
+                System.out.print("   What would you like to do:\n   - 1 for pay a bounty\n   - 2 to go back\n   > ");
                 String choice = s.nextLine();
                 if (choice.equals("1")){
                     System.out.print("   _____________________________________\n   |  Open Bounties:                   |\n   | Member 1          -  1250 dollars |\n   | Member 2          -  7500 dollars |\n   | Member 3         -  25000 dollars |\n   | Member 4         -  55000 dollars |\n   | BlackJack Slater    - 255 dollars |\n   | Mad  McCallister   - 2345 dollars |\n   _____________________________________\n   (5 to go back)\n   > ");
@@ -70,9 +70,6 @@ public class WildWestOutlawRunner {
                     }
                 }
                 else if (choice.equals("2")){
-
-                }
-                else if (choice.equals("3")){
                     System.out.println("\n   You leave jail.");
                 }
                 else {
