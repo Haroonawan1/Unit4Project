@@ -7,7 +7,12 @@ public class WildWestOutlaw {
     private int day;
     private int saved;
     private boolean gameOver;
-    private int damage = 10;
+    private int damage;
+
+    private boolean member1Saved;
+    private boolean member2Saved;
+    private boolean member3Saved;
+    private boolean member4Saved;
 
     Images i = new Images();
 
@@ -20,6 +25,12 @@ public class WildWestOutlaw {
         day = 1;
         saved = 0;
         gameOver = false;
+        damage = 10;
+
+        member1Saved = false;
+        member2Saved = false;
+        member3Saved = false;
+        member4Saved = false;
     }
 
 
@@ -529,6 +540,10 @@ public class WildWestOutlaw {
         return str;
     }
 
+    public String printBounties(){
+        String str = "print the correct bounty page";
+        return str;
+    }
 
     public String payBounty(int x){
         String str = "";
@@ -538,50 +553,74 @@ public class WildWestOutlaw {
         int member4 = 55000;
 
         if (x == 1){
-            if (money < member1){
-                str += "   You do not have enough money to pay off this bounty";
+            if (member1Saved){
+                str += "   You have already paid this bounty";
             }
             else {
-                str += "   You buy the bounty of Member 1, he is very happy. You become more honorable";
-                money -= member1;
-                setHonor(25);
-                saved++;
+                if (money < member1){
+                    str += "   You do not have enough money to pay off this bounty";
+                }
+                else {
+                    str += "   You buy the bounty of Member 1, he is very happy. You become more honorable";
+                    money -= member1;
+                    setHonor(25);
+                    saved++;
+                    member1Saved = true;
+                }
             }
         }
 
         if (x == 2){
-            if (money < member2){
-                str += "   You do not have enough money to pay off this bounty";
+            if (member1Saved){
+                str += "   You have already paid this bounty";
             }
             else {
-                str += "   You buy the bounty of Member 2, he is very happy. You become more honorable";
-                money -= member2;
-                setHonor(35);
-                saved++;
+                if (money < member2){
+                    str += "   You do not have enough money to pay off this bounty";
+                }
+                else {
+                    str += "   You buy the bounty of Member 2, he is very happy. You become more honorable";
+                    money -= member2;
+                    setHonor(35);
+                    saved++;
+                    member2Saved = true;
+                }
             }
         }
 
         if (x == 3){
-            if (money < member3){
-                str += "   You do not have enough money to pay off this bounty";
+            if (member1Saved){
+                str += "   You have already paid this bounty";
             }
             else {
-                str += "   You buy the bounty of Member 3, he is very happy. You become more honorable";
-                money -= member3;
-                setHonor(50);
-                saved++;
+                if (money < member3){
+                    str += "   You do not have enough money to pay off this bounty";
+                }
+                else {
+                    str += "   You buy the bounty of Member 3, he is very happy. You become more honorable";
+                    money -= member3;
+                    setHonor(50);
+                    saved++;
+                    member3Saved = true;
+                }
             }
         }
 
         if (x == 4){
-            if (money < member4){
-                str += "   You do not have enough money to pay off this bounty";
+            if (member1Saved){
+                str += "   You have already paid this bounty";
             }
             else {
-                str += "   You buy the bounty of Member 4, he is very happy. You become more honorable";
-                money -= member4;
-                setHonor(75);
-                saved++;
+                if (money < member4){
+                    str += "   You do not have enough money to pay off this bounty";
+                }
+                else {
+                    str += "   You buy the bounty of Member 4, he is very happy. You become more honorable";
+                    money -= member4;
+                    setHonor(75);
+                    saved++;
+                    member4Saved = true;
+                }
             }
         }
 
