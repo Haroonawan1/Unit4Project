@@ -120,14 +120,10 @@ public class WildWestOutlaw {
             int bountyHunterHealth = 100;
             int random = (int) (Math.random() * 3) + 1;
 
-            if (random == 1){
-                str += enemy("Bandit", banditHealth, 1);
-            }
-            if (random == 2){
-                str += enemy("Law Enforcer", lawEnforcerHealth, 2);
-            }
-            if (random == 3){
-                str += enemy("Bounty Hunter", bountyHunterHealth, 4);
+            switch (random){
+                case 1 -> str += enemy("Bandit", banditHealth, 1);
+                case 2 -> str += enemy("Law Enforcer", lawEnforcerHealth, 2);
+                case 3 -> str += enemy("Bounty Hunter", bountyHunterHealth, 4);
             }
             x--;
         }
@@ -242,16 +238,11 @@ public class WildWestOutlaw {
     }
 
     public String crime(int x, String t){
-        int moneyFound = 0;
         String str = "";
-        if (x == 1){
-            str = stageCoach();
-        }
-        if (x == 2){
-            str = train(t);
-        }
-        if (x == 3){
-            str = bank(t);
+        switch (x){
+            case 1 -> str = stageCoach();
+            case 2 -> str = train(t);
+            case 3 -> str = bank(t);
         }
         return str;
     }
@@ -259,20 +250,12 @@ public class WildWestOutlaw {
     public String hint(){
         String str = "";
         int random = (int) (Math.random() * 5) + 1;
-        if (random == 1){
-            str += "   The stranger says: Thank you! I am not sure if I should tell you this but the bank is usually least guarded at night.\n";
-        }
-        if (random == 2){
-            str += "   The stranger says: Thanks! Your end is affected by the actions you do.\n   You think: What a weirdo.\n";
-        }
-        if (random == 3){
-            str += "   The stranger says: I think some of your buddies are locked up right now. Helping them can make you more honorable.\n";
-        }
-        if (random == 4){
-            str += "   The stranger says: Attempting to do a crime is dishonorable, but not as dishonorable as carrying through with your intentions.\n";
-        }
-        if (random == 5){
-            str += "   The stranger says: Go touch grass\n   You think: What a weirdo\n";
+        switch(random){
+            case 1 -> str += "   The stranger says: Thank you! I am not sure if I should tell you this but the bank is usually least guarded at night.\n";
+            case 2 -> str += "   The stranger says: Thanks! Your end is affected by the actions you do.\n   You think: What a weirdo.\n";
+            case 3 -> str += "   The stranger says: I think some of your buddies are locked up right now. Helping them can make you more honorable.\n";
+            case 4 -> str += "   The stranger says: Attempting to do a crime is dishonorable, but not as dishonorable as carrying through with your intentions.\n";
+            case 5 -> str += "   The stranger says: Go touch grass\n   You think: What a weirdo\n";
         }
         return str;
     }
@@ -354,14 +337,10 @@ public class WildWestOutlaw {
 
     public String goodDeed(int x, int m){
         String str = "";
-        if (x == 1){
-            str = giveARide();
-        }
-        if (x == 2){
-            str = giveMoneyToThePoor(m);
-        }
-        if (x == 3){
-            str = stopAFight();
+        switch (x){
+            case 1 -> str = giveARide();
+            case 2 -> str = giveMoneyToThePoor(m);
+            case 3 -> str = stopAFight();
         }
         return str;
     }
@@ -420,41 +399,19 @@ public class WildWestOutlaw {
         int clothArmor = 150, sturdyArmor = 1545, medievalArmor = 26740;
         int preHealth = health, preDamage = damage, preMaxHealth = maxHealth;
 
-        if (s.equals("Apple")){
-            str += item(apple, "health", 15, "Apple");
-        }
-        else if (s.equals("Loaf of Bread")){
-            str += item(loafOfBread, "health", 45, "Loaf of Bread");
-        }
-        else if (s.equals("Steak")){
-            str += item(steak, "health", 90, "Steak");
-        }
-        else if (s.equals("Cloth armor")){
-            str += item(clothArmor, "maxHealth", 35, "Cloth armor");
-        }
-        else if (s.equals("Sturdy armor")){
-            str += item(sturdyArmor, "maxHealth", 55, "Sturdy armor");
-        }
-        else if (s.equals("Medieval armor")){
-            str += item(medievalArmor, "maxHealth", 65, "Medieval armor");
-        }
-        else if (s.equals("Colt Cobra")){
-            str += item(coltCobra, "damage", 15, "Colt Cobra");
-        }
-        else if (s.equals("M1903 Springfield")){
-            str += item(m1903SpringField, "damage", 20, "M1903 Springfield");
-        }
-        else if (s.equals("Browning Auto-5")){
-            str += item(browningAuto5, "damage", 25, "Browning Auto-5");
-        }
-        else if (s.equals("Elephant Rifle")){
-            str += item(elephantRifle, "damage", 30, "Elephant Rifle");
-        }
-        else if (s.equals("M198 Howitzer")){
-            str += item(m198Howitzer, "damage", 100, "M198 Howitzer");
-        }
-        else {
-            str += "   That is not an item on the catalogue";
+        switch (s) {
+            case "Apple" -> str += item(apple, "health", 15, "Apple");
+            case "Loaf of Bread" -> str += item(loafOfBread, "health", 45, "Loaf of Bread");
+            case "Steak" -> str += item(steak, "health", 90, "Steak");
+            case "Cloth armor" -> str += item(clothArmor, "maxHealth", 35, "Cloth armor");
+            case "Sturdy armor" -> str += item(sturdyArmor, "maxHealth", 55, "Sturdy armor");
+            case "Medieval armor" -> str += item(medievalArmor, "maxHealth", 65, "Medieval armor");
+            case "Colt Cobra" -> str += item(coltCobra, "damage", 15, "Colt Cobra");
+            case "M1903 Springfield" -> str += item(m1903SpringField, "damage", 20, "M1903 Springfield");
+            case "Browning Auto-5" -> str += item(browningAuto5, "damage", 25, "Browning Auto-5");
+            case "Elephant Rifle" -> str += item(elephantRifle, "damage", 30, "Elephant Rifle");
+            case "M198 Howitzer" -> str += item(m198Howitzer, "damage", 100, "M198 Howitzer");
+            default -> str += "   That is not an item on the catalogue";
         }
 
         if (str.equals("   You do not have enough money to buy that item.") || str.equals("   That is not an item on the catalogue")){
@@ -487,17 +444,11 @@ public class WildWestOutlaw {
                 money -= price;
                 setHonor(gainedHonor);
                 saved++;
-                if (member.equals("Member 1")){
-                    member1Saved = true;
-                }
-                if (member.equals("Member 2")){
-                    member2Saved = true;
-                }
-                if (member.equals("Member 3")){
-                    member3Saved = true;
-                }
-                if (member.equals("Member 4")){
-                    member4Saved = true;
+                switch (member){
+                    case "Member 1" -> member1Saved = true;
+                    case "Member 2" -> member2Saved = true;
+                    case "Member 3" -> member3Saved = true;
+                    case "Member 4" -> member4Saved = true;
                 }
             }
         }
@@ -507,18 +458,11 @@ public class WildWestOutlaw {
     public String payBounty(int x){
         String str = "";
         int member1Price = 1250, member2Price = 7500, member3Price = 25000, member4Price = 55000;
-
-        if (x == 1){
-            str += bounty(member1Price, "Member 1", 25);
-        }
-        if (x == 2){
-            str += bounty(member2Price, "Member 2", 35);
-        }
-        if (x == 3){
-            str += bounty(member3Price, "Member 3", 50);
-        }
-        if (x == 4){
-            str += bounty(member4Price, "Member 4", 75);
+        switch (x){
+            case 1 -> str += bounty(member1Price, "Member 1", 25);
+            case 2 -> str += bounty(member2Price, "Member 2", 35);
+            case 3 -> str += bounty(member3Price, "Member 3", 50);
+            case 4 -> str += bounty(member4Price, "Member 4", 75);
         }
         return str;
     }
