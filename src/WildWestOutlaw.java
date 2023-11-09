@@ -164,7 +164,6 @@ public class WildWestOutlaw {
 
     public String train(String t){
         String str = i.train();
-
         int moneyFound = 0;
         if (t.equals("03:00") || t.equals("06:00") || t.equals("09:00") || t.equals("12:00") || t.equals("15:00") || t.equals("18:00") || t.equals("21:00") || t.equals("00:00")){
             int random = (int) (Math.random() * 10) + 1;
