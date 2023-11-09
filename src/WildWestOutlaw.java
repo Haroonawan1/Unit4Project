@@ -53,8 +53,6 @@ public class WildWestOutlaw {
         armor3Bought = false;
     }
 
-
-
     public String help(){
         String str = "   _____________________________________________________________________________________________________________________";
         str += "\n    HELP:\n    1) The objective of the game is to raise enough money in order to pay off the bounty of your fellow gang members";
@@ -79,7 +77,6 @@ public class WildWestOutlaw {
         day++;
     }
 
-
     public String getStats(){
         String str = "\n   ____________________________";
         str += "\n    Your current statistics:\n";
@@ -99,63 +96,43 @@ public class WildWestOutlaw {
         }
     }
 
+    public String enemy(String name, int enemyHealth, int enemyDamage){
+        String str = "\n   You begin fighting a " + name + "\n";
+        while (health > 0 && enemyHealth > 0) {
+            enemyHealth -= damage;
+            health -= enemyDamage;
+        }
+        if (enemyHealth <= 0){
+            str += "   You won your fight against the " + name + "!\n   Remaining Health: " + health + "\n";
+        }
+        if (health <= 0){
+            str += ending("died in battle");
+            gameOver = true;
+        }
+        return str;
+    }
+
     public String fight(int x){
         String str = "";
-        boolean done = false;
         while (x > 0 && !gameOver){
-            int bandit = 50;
-            int lawEnforcer = 75;
-            int bountyHunter = 100;
+            int banditHealth = 50;
+            int lawEnforcerHealth = 75;
+            int bountyHunterHealth = 100;
             int random = (int) (Math.random() * 3) + 1;
 
             if (random == 1){
-                str += "\n   You begin fighting a Bandit\n";
-                while (health > 0 && bandit > 0) {
-                    bandit -= damage;
-                    health -= 1;
-                }
-                if (bandit <= 0){
-                    str += "   You won your fight against the Bandit!\n   Remaining Health: " + health + "\n";
-                }
-                if (health <= 0){
-                    str += ending("died in battle");
-                    gameOver = true;
-                }
+                str += enemy("Bandit", banditHealth, 1);
             }
             if (random == 2){
-                str += "\n   You begin fighting a Law Enforcer\n";
-                while (health > 0 && lawEnforcer > 0) {
-                    lawEnforcer -= damage;
-                    health -= 2;
-                }
-                if (lawEnforcer <= 0){
-                    str += "   You won your fight against the Law Enforcer!\n   Remaining Health: " + health + "\n";
-                }
-                if (health <= 0){
-                    str += ending("died in battle");
-                    gameOver = true;
-                }
+                str += enemy("Law Enforcer", lawEnforcerHealth, 2);
             }
             if (random == 3){
-                str += "\n   You begin fighting a Bounty Hunter\n";
-                while (health > 0 && bountyHunter > 0) {
-                    bountyHunter -= damage;
-                    health -= 4;
-                }
-                if (bountyHunter <= 0){
-                    str += "   You won your fight against the Bounty Hunter!\n   Remaining Health: " + health + "\n";
-                }
-                if (health <= 0){
-                    str += ending("died in battle");
-                    gameOver = true;
-                }
+                str += enemy("Bounty Hunter", bountyHunterHealth, 4);
             }
             x--;
         }
         return str;
     }
-
-
 
     public String stageCoach(){
         String str = i.stageCoach();
@@ -164,19 +141,16 @@ public class WildWestOutlaw {
             int random = (int) (Math.random() * 10) + 1;
             str += "\n   As you ride down a pathway you find a stagecoach.\n";
             if (random <= 4){
-                str += "   The stagecoach you find only has a driver and a few passengers, this should be an easy target, lucky you.\n";
+                str += "   The stagecoach you find only has a driver and a few passengers, this should be an easy target, lucky you.\n" + fight(2);
                 moneyFound = (int) (Math.random() * 10) + 10;
-                str += fight(2);
             }
             else if (random <= 8){
-                str += "\n   The stagecoach is not unguarded but a few men should not be a problem for a legend like you.\n";
+                str += "\n   The stagecoach is not unguarded but a few men should not be a problem for a legend like you.\n" + fight(3);
                 moneyFound = (int) (Math.random() * 30) + 20;
-                str += fight(3);
             }
             else {
-                str += "   The stagecoach is heavily guarded, this will be a tough fight but all those men must be guarding something valuable.\n";
+                str += "   The stagecoach is heavily guarded, this will be a tough fight but all those men must be guarding something valuable.\n" + fight(4);
                 moneyFound = (int) (Math.random() * 50) + 50;
-                str += fight(4);
             }
             setHonor(-5);
         }
@@ -192,8 +166,6 @@ public class WildWestOutlaw {
         return str;
     }
 
-
-
     public String train(String t){
         String str = i.train();
 
@@ -206,19 +178,16 @@ public class WildWestOutlaw {
                 moneyFound = 100;
             }
             else if (random <= 4){
-                str += "   You jump onto the train and it doesn't seem very fancy but doesn't seem very guarded either.\n";
+                str += "   You jump onto the train and it doesn't seem very fancy but doesn't seem very guarded either.\n" + fight(5);
                 moneyFound = (int) (Math.random() * 200) + 100;
-                str += fight(5);
             }
             else if (random <= 8){
-                str += "   You jump onto the train, when you peer into the nearest carriage it seems like a good target... with many guards as well\n";
+                str += "   You jump onto the train, when you peer into the nearest carriage it seems like a good target... with many guards as well\n" + fight(6);
                 moneyFound = (int) (Math.random() * 200) + 300;
-                str += fight(6);
             }
             else {
-                str += "   The train looks luxurious! The second you jump on people start shooting at you!.\n";
+                str += "   The train looks luxurious! The second you jump on people start shooting at you!.\n" + fight(8);
                 moneyFound = (int) (Math.random() * 500) + 500;
-                str += fight(8);
             }
             setHonor(-10);
         }
@@ -233,36 +202,31 @@ public class WildWestOutlaw {
         return str;
     }
 
-
-
     public String bank(String t){
         String str = i.bank();
         String openTime = "08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00";
         int moneyFound = 0;
         int random = (int) (Math.random() * 10) + 1;
-        if (openTime.indexOf(t) != -1){
+        if (openTime.contains(t)){
             int x = 0;
-            if (openTime.substring(0, 23).indexOf(t) != -1){
+            if (openTime.substring(0, 23).contains(t)){
                 x += 2;
             }
-            else if (openTime.substring(23, 53).indexOf(t) != -1){
+            else if (openTime.substring(23, 53).contains(t)){
                 x += 4;
             }
 
             if (random <= 4){
-                str += "   You enter the bank and find that it is not that crowded, but of course still guarded.\n";
+                str += "   You enter the bank and find that it is not that crowded, but of course still guarded.\n" + fight(8 + x);
                 moneyFound = (int) (Math.random() * 3000) + 1000;
-                str += fight(8 + x);
             }
             else if (random <= 8){
-                str += "   You enter and see the bank full of people, this will not be easy.\n";
+                str += "   You enter and see the bank full of people, this will not be easy.\n" + fight(10 + x);
                 moneyFound = (int) (Math.random() * 2000) + 3000;
-                str += fight(10 + x);
             }
             else{
-                str += "   The bank is full of guards right now, this usually means the bank is full of money too!\n";
+                str += "   The bank is full of guards right now, this usually means the bank is full of money too!\n" + fight(12 + x);
                 moneyFound = (int) (Math.random() * 5000) + 5000;
-                str += fight(12 + x);
             }
             setHonor(-20);
         }
@@ -276,8 +240,6 @@ public class WildWestOutlaw {
         }
         return str;
     }
-
-
 
     public String crime(int x, String t){
         int moneyFound = 0;
@@ -321,8 +283,7 @@ public class WildWestOutlaw {
             str += "\n   You find someone in need of a ride home\n";
             int random = (int) (Math.random() * 3) + 1;
             if (random == 1){
-                str += "   The person thanks you for the ride and you go on with your day.\n";
-                str += hint();
+                str += "   The person thanks you for the ride and you go on with your day.\n" + hint();
             }
             if (random == 2){
                 int moneyLost = (int) (Math.random() * (money/5));
@@ -330,8 +291,7 @@ public class WildWestOutlaw {
                 str += "   The person thank you for the ride but as you leave your pockets seem a little lighter.\n   Money lost: " + moneyLost + "\n";
             }
             if (random == 3){
-                str += "   The person gets on your horse... and then... kicks you off! You run after him and get into a fight!\n";
-                str += fight(1);
+                str += "   The person gets on your horse... and then... kicks you off! You run after him and get into a fight!\n" + fight(1);
             }
             setHonor(10);
         }
@@ -367,8 +327,7 @@ public class WildWestOutlaw {
                 setHonor(1);
             }
             if ((int) (Math.random() * 10) + 1 >= 8){
-                str += "\n   Before you get the chance to leave a homeless guy approaches you.\n";
-                str += hint();
+                str += "\n   Before you get the chance to leave a homeless guy approaches you.\n" + hint();
             }
         }
         else{
@@ -380,16 +339,14 @@ public class WildWestOutlaw {
     public String stopAFight(){
         String str = "\n   As you walk down a street in town you see a fight going on an go to intervene.";
         int random = (int) (Math.random() * 10) + 1;
-        if (random >= 8){
+        if (random >= 7){
             str += "\n   You are able to make the two men stop fighting pretty quickly. They both walk of angry.\n";
         }
-        else if (random >= 5){
-            str += "\n   You break up the fight and help the man left on the floor, he is really beat up. Before you can leave he says something.\n";
-            str += hint();
+        else if (random >= 4){
+            str += "\n   You break up the fight and help the man left on the floor, he is really beat up. Before you can leave he says something.\n" + hint();
         }
         else {
-            str += "\n   Both men decide to stop fighting with a little bit of convincing... and then decide to fight you!\n";
-            str += fight(2);
+            str += "\n   Both men decide to stop fighting with a little bit of convincing... and then decide to fight you!\n" + fight(2);
         }
         setHonor(8);
         return str;
@@ -409,174 +366,93 @@ public class WildWestOutlaw {
         return str;
     }
 
+    public String item(int price, String statAffected, int change, String itemName){
+        String str = "";
+        if (price >= money){
+            str += "   You do not have enough money to buy that item";
+        }
+        else {
+            if (statAffected.equals("health")){
+                health += change;
+                health = Math.min(health, maxHealth);
+            }
+            if (statAffected.equals("maxHealth")){
+                if ((armor1Bought && itemName.equals("Cloth armor")) || (armor2Bought && itemName.equals("Sturdy armor")) || (armor3Bought && itemName.equals("Medieval armor"))){
+                    str += "\n   (You already bought this armor upgrade)";
+                }
+                else {
+                    maxHealth += (itemName.equals("Cloth armor")) ? 35 : 0;
+                    maxHealth += (itemName.equals("Sturdy armor")) ? 55 : 0;
+                    maxHealth += (itemName.equals("Medieval armor")) ? 65 : 0;
+
+                    armor1Bought = itemName.equals("Cloth armor") || armor1Bought;
+                    armor2Bought = itemName.equals("Sturdy armor") || armor2Bought;
+                    armor3Bought = itemName.equals("Medieval armor") || armor3Bought;
+                }
+            }
+            if (statAffected.equals("damage")){
+                if ((weapon1Bought && itemName.equals("Colt Cobra")) || (weapon2Bought && itemName.equals("M1903 Springfield")) || (weapon3Bought && itemName.equals("Browning Auto-5")) || (weapon4Bought && itemName.equals("Elephant Rifle")) || (weapon5Bought && itemName.equals("M198 Howitzer"))){
+                    str += "\n   (You already own this weapon and was not charged)";
+                }
+                else {
+                    damage = (itemName.equals("Colt Cobra")) ? 15 : damage;
+                    damage = (itemName.equals("M1903 Springfield")) ? 20 : damage;
+                    damage = (itemName.equals("Browning Auto-5")) ? 25 : damage;
+                    damage = (itemName.equals("Elephant Rifle")) ? 30 : damage;
+                    damage = (itemName.equals("M198 Howitzer")) ? 100 : damage;
+
+                    weapon1Bought = itemName.equals("Colt Cobra") || weapon1Bought;
+                    weapon2Bought = itemName.equals("M1903 Springfield") || weapon2Bought;
+                    weapon3Bought = itemName.equals("Browning Auto-5") || weapon3Bought;
+                    weapon4Bought = itemName.equals("Elephant Rifle") || weapon4Bought;
+                    weapon5Bought = itemName.equals("M198 Howitzer") || weapon5Bought;
+                }
+            }
+            money -= (str.contains("already")) ? 0 : price;
+        }
+        return str;
+    }
+
     public String shop(String s){
         String str = "";
-        int coltCobra = 175;
-        int m1903SpringField = 955;
-        int browningAuto5 = 6500;
-        int elephantRifle = 15750;
-        int m198Howitzer = 112007;
-
-        int apple = 10;
-        int loafOfBread = 20;
-        int steak = 35;
-
-        int clothArmor = 150;
-        int sturdyArmor = 1545;
-        int medievalArmor = 26740;
-
-        int preHealth = health;
-        int preDamage = damage;
-        int preMaxHealth = maxHealth;
+        int coltCobra = 175, m1903SpringField = 955, browningAuto5 = 6500, elephantRifle = 15750, m198Howitzer = 112007;
+        int apple = 10, loafOfBread = 20, steak = 35;
+        int clothArmor = 150, sturdyArmor = 1545, medievalArmor = 26740;
+        int preHealth = health, preDamage = damage, preMaxHealth = maxHealth;
 
         if (s.equals("Apple")){
-            if (apple >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else {
-                money -= apple;
-                health += 15;
-                if (health > maxHealth){
-                    health = maxHealth;
-                }
-            }
+            str += item(apple, "health", 15, "Apple");
         }
         else if (s.equals("Loaf of Bread")){
-            if (loafOfBread >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else {
-                money -= loafOfBread;
-                health += 45;
-                if (health > maxHealth){
-                    health = maxHealth;
-                }
-            }
+            str += item(loafOfBread, "health", 45, "Loaf of Bread");
         }
         else if (s.equals("Steak")){
-            if (steak >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else {
-                money -= steak;
-                health += 90;
-                if (health > maxHealth){
-                    health = maxHealth;
-                }
-            }
+            str += item(steak, "health", 90, "Steak");
         }
-
         else if (s.equals("Cloth armor")){
-            if (clothArmor >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else if (armor1Bought){
-                str += "\n   (You already bought this armor upgrade)";
-            }
-            else {
-                money -= clothArmor;
-                maxHealth += 35;
-                armor1Bought = true;
-            }
+            str += item(clothArmor, "maxHealth", 35, "Cloth armor");
         }
         else if (s.equals("Sturdy armor")){
-            if (armor2Bought){
-                str += "\n   (You already bought this armor upgrade)";
-            }
-            else if (sturdyArmor >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else {
-                money -= sturdyArmor;
-                maxHealth += 55;
-                armor2Bought = true;
-            }
+            str += item(sturdyArmor, "maxHealth", 55, "Sturdy armor");
         }
         else if (s.equals("Medieval armor")){
-            if (medievalArmor >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else if (armor3Bought){
-                str += "\n   (You already bought this armor upgrade)";
-            }
-            else {
-                money -= medievalArmor;
-                maxHealth += 65;
-                armor3Bought = true;
-            }
+            str += item(medievalArmor, "maxHealth", 65, "Medieval armor");
         }
-
         else if (s.equals("Colt Cobra")){
-            if (weapon1Bought){
-                str += "\n   (You already own this weapon and were not charged)";
-                damage = 15;
-            }
-            else if (coltCobra >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else{
-                money -= coltCobra;
-                damage = 15;
-                weapon1Bought = true;
-            }
+            str += item(coltCobra, "damage", 15, "Colt Cobra");
         }
         else if (s.equals("M1903 Springfield")){
-            if (weapon2Bought){
-                str += "\n   (You already own this weapon and were not charged)";
-                damage = 20;
-            }
-            else if (m1903SpringField >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else{
-                money -= m1903SpringField;
-                damage = 20;
-                weapon2Bought = true;
-            }
+            str += item(m1903SpringField, "damage", 20, "M1903 Springfield");
         }
         else if (s.equals("Browning Auto-5")){
-            if (weapon3Bought){
-                str += "\n   (You already own this weapon and were not charged)";
-                damage = 25;
-            }
-            else if (browningAuto5 >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else{
-                money -= browningAuto5;
-                damage = 25;
-                weapon3Bought = true;
-            }
+            str += item(browningAuto5, "damage", 25, "Browning Auto-5");
         }
         else if (s.equals("Elephant Rifle")){
-            if (weapon4Bought){
-                str += "\n   (You already own this weapon and were not charged)";
-                damage = 30;
-            }
-            else if (elephantRifle >= money){
-                str += "   You do not have enough money to buy that item";
-            }
-            else{
-                money -= elephantRifle;
-                damage = 30;
-                weapon4Bought = true;
-            }
+            str += item(elephantRifle, "damage", 30, "Elephant Rifle");
         }
         else if (s.equals("M198 Howitzer")){
-            if (weapon5Bought){
-                str += "\n   (You already own this weapon and were not charged)";
-                damage = 100;
-            }
-            else if (m198Howitzer >= money){
-                str += "   You do not have enough money to buy that item.";
-            }
-            else{
-                money -= m198Howitzer;
-                damage = 100;
-                weapon5Bought = true;
-            }
+            str += item(m198Howitzer, "damage", 100, "M198 Howitzer");
         }
-
         else {
             str += "   That is not an item on the catalogue";
         }
@@ -597,93 +473,55 @@ public class WildWestOutlaw {
         return str;
     }
 
-    public String printBounties(){
-        String str = "print the correct bounty page";
+    public String bounty(int price, String member, int gainedHonor){
+        String str = "";
+        if ((member1Saved && member.equals("Member 1")) || (member2Saved && member.equals("Member 2")) || (member3Saved && member.equals("Member 3")) || (member4Saved && member.equals("Member 4"))){
+            str += "   You have already paid this bounty";
+        }
+        else {
+            if (money < price){
+                str += "   You do not have enough money to pay off this bounty";
+            }
+            else {
+                str += "   You buy the bounty of " + member + ", he is very happy. You become more honorable";
+                money -= price;
+                setHonor(gainedHonor);
+                saved++;
+                if (member.equals("Member 1")){
+                    member1Saved = true;
+                }
+                if (member.equals("Member 2")){
+                    member2Saved = true;
+                }
+                if (member.equals("Member 3")){
+                    member3Saved = true;
+                }
+                if (member.equals("Member 4")){
+                    member4Saved = true;
+                }
+            }
+        }
         return str;
     }
 
     public String payBounty(int x){
         String str = "";
-        int member1 = 1250;
-        int member2 = 7500;
-        int member3 = 25000;
-        int member4 = 55000;
+        int member1Price = 1250, member2Price = 7500, member3Price = 25000, member4Price = 55000;
 
         if (x == 1){
-            if (member1Saved){
-                str += "   You have already paid this bounty";
-            }
-            else {
-                if (money < member1){
-                    str += "   You do not have enough money to pay off this bounty";
-                }
-                else {
-                    str += "   You buy the bounty of Member 1, he is very happy. You become more honorable";
-                    money -= member1;
-                    setHonor(25);
-                    saved++;
-                    member1Saved = true;
-                }
-            }
+            str += bounty(member1Price, "Member 1", 25);
         }
-
         if (x == 2){
-            if (member2Saved){
-                str += "   You have already paid this bounty";
-            }
-            else {
-                if (money < member2){
-                    str += "   You do not have enough money to pay off this bounty";
-                }
-                else {
-                    str += "   You buy the bounty of Member 2, he is very happy. You become more honorable";
-                    money -= member2;
-                    setHonor(35);
-                    saved++;
-                    member2Saved = true;
-                }
-            }
+            str += bounty(member2Price, "Member 2", 35);
         }
-
         if (x == 3){
-            if (member3Saved){
-                str += "   You have already paid this bounty";
-            }
-            else {
-                if (money < member3){
-                    str += "   You do not have enough money to pay off this bounty";
-                }
-                else {
-                    str += "   You buy the bounty of Member 3, he is very happy. You become more honorable";
-                    money -= member3;
-                    setHonor(50);
-                    saved++;
-                    member3Saved = true;
-                }
-            }
+            str += bounty(member3Price, "Member 3", 50);
         }
-
         if (x == 4){
-            if (member4Saved){
-                str += "   You have already paid this bounty";
-            }
-            else {
-                if (money < member4){
-                    str += "   You do not have enough money to pay off this bounty";
-                }
-                else {
-                    str += "   You buy the bounty of Member 4, he is very happy. You become more honorable";
-                    money -= member4;
-                    setHonor(75);
-                    saved++;
-                    member4Saved = true;
-                }
-            }
+            str += bounty(member4Price, "Member 4", 75);
         }
-
         return str;
     }
-
 
     public String ending(String x){
         String str = "";
@@ -694,8 +532,7 @@ public class WildWestOutlaw {
             str += "\n                                                  You ended your journey";
             gameOver = true;
         }
-        str += "\n                                             This concludes the legend of " + name;
-        str += "\n______________________________________________________________________________________________________________________________";
+        str += "\n                                             This concludes the legend of " + name + "\n______________________________________________________________________________________________________________________________";
         return str;
     }
 }
