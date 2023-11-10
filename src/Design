@@ -112,13 +112,13 @@ Methods:
         corresponding "is bought" method if there is one. If the item has already been bought you are not charged. The results are returned as a string in a variable.
 
     public String shop(String s)
-        The method will take the variable s, and then run the correct version of the method item() and then return the results of this as a string. The effect of the item
-        will also be part of these results
+        The method will take the variable s, and then run the correct version of the method item() and then return the results of this as a string. The effect the item had on
+        the stats of the character are also added.
 
-    public void bounty()
-        This method will print out information about the four gang members that are currently in jail such as how much it cost to pay their bounty and how many
-        days remain until they are executed. If the user has enough money they will be prompted to pay the bounty of a member of the gang and if they do the
-        variable saved will be increased.
+    public void bounty(int price, String member, int gainedHonor)
+        This method checks if the user has already paid a certain bounty and if so that is returned as a string. If they cannot afford the bounty that information is returned
+        to the user. If the user can pay for the bounty, they gain gainedHonor amount of honor and price amount of money is removed from their money. Then the member whose
+        bounty is now paid is stored
 
     public String end()
         The method will return a string which has details containing the ending of the game. The ending which is selected and displayed will be determined by how many

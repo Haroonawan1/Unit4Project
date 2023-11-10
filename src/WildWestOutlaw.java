@@ -8,21 +8,7 @@ public class WildWestOutlaw {
     private int saved;
     private boolean gameOver;
     private int damage;
-
-    private boolean member1Saved;
-    private boolean member2Saved;
-    private boolean member3Saved;
-    private boolean member4Saved;
-
-    private boolean weapon1Bought;
-    private boolean weapon2Bought;
-    private boolean weapon3Bought;
-    private boolean weapon4Bought;
-    private boolean weapon5Bought;
-
-    private boolean armor1Bought;
-    private boolean armor2Bought;
-    private boolean armor3Bought;
+    private String taskCompleted;
 
     Images i = new Images();
 
@@ -36,21 +22,7 @@ public class WildWestOutlaw {
         saved = 0;
         gameOver = false;
         damage = 10;
-
-        member1Saved = false;
-        member2Saved = false;
-        member3Saved = false;
-        member4Saved = false;
-
-        weapon1Bought = false;
-        weapon2Bought = false;
-        weapon3Bought = false;
-        weapon4Bought = false;
-        weapon5Bought = false;
-
-        armor1Bought = false;
-        armor2Bought = false;
-        armor3Bought = false;
+        taskCompleted = "";
     }
 
     public String help(){
@@ -355,35 +327,46 @@ public class WildWestOutlaw {
                 health = Math.min(health, maxHealth);
             }
             if (statAffected.equals("maxHealth")){
-                if ((armor1Bought && itemName.equals("Cloth armor")) || (armor2Bought && itemName.equals("Sturdy armor")) || (armor3Bought && itemName.equals("Medieval armor"))){
+                if ((taskCompleted.contains("Cloth armor") && itemName.equals("Cloth armor")) || (taskCompleted.contains("Sturdy armor") && itemName.equals("Sturdy armor")) || (taskCompleted.contains("Medieval armor") && itemName.equals("Medieval armor"))){
                     str += "\n   (You already bought this armor upgrade)";
                 }
                 else {
-                    maxHealth += (itemName.equals("Cloth armor")) ? 35 : 0;
-                    maxHealth += (itemName.equals("Sturdy armor")) ? 55 : 0;
-                    maxHealth += (itemName.equals("Medieval armor")) ? 65 : 0;
-
-                    armor1Bought = itemName.equals("Cloth armor") || armor1Bought;
-                    armor2Bought = itemName.equals("Sturdy armor") || armor2Bought;
-                    armor3Bought = itemName.equals("Medieval armor") || armor3Bought;
+                    switch (itemName){
+                        case "Cloth armor":
+                            maxHealth += 35;
+                            taskCompleted += "Cloth armor";
+                        case "Sturdy armor":
+                            maxHealth += 55;
+                            taskCompleted += "Sturdy armor";
+                        case "Medieval armor":
+                            maxHealth += 65;
+                            taskCompleted += "Medieval armor";
+                        default: maxHealth += 0;
+                    }
                 }
             }
             if (statAffected.equals("damage")){
-                if ((weapon1Bought && itemName.equals("Colt Cobra")) || (weapon2Bought && itemName.equals("M1903 Springfield")) || (weapon3Bought && itemName.equals("Browning Auto-5")) || (weapon4Bought && itemName.equals("Elephant Rifle")) || (weapon5Bought && itemName.equals("M198 Howitzer"))){
+                if ((taskCompleted.contains("Colt Cobra") && itemName.equals("Colt Cobra")) || (taskCompleted.contains("M1903 Springfield") && itemName.equals("M1903 Springfield")) || (taskCompleted.contains("Browning Auto-5") && itemName.equals("Browning Auto-5")) || (taskCompleted.contains("Elephant Rifle") && itemName.equals("Elephant Rifle")) || (taskCompleted.contains("M198 Howitzer") && itemName.equals("M198 Howitzer"))){
                     str += "\n   (You already own this weapon and was not charged)";
                 }
                 else {
-                    damage = (itemName.equals("Colt Cobra")) ? 15 : damage;
-                    damage = (itemName.equals("M1903 Springfield")) ? 20 : damage;
-                    damage = (itemName.equals("Browning Auto-5")) ? 25 : damage;
-                    damage = (itemName.equals("Elephant Rifle")) ? 30 : damage;
-                    damage = (itemName.equals("M198 Howitzer")) ? 100 : damage;
-
-                    weapon1Bought = itemName.equals("Colt Cobra") || weapon1Bought;
-                    weapon2Bought = itemName.equals("M1903 Springfield") || weapon2Bought;
-                    weapon3Bought = itemName.equals("Browning Auto-5") || weapon3Bought;
-                    weapon4Bought = itemName.equals("Elephant Rifle") || weapon4Bought;
-                    weapon5Bought = itemName.equals("M198 Howitzer") || weapon5Bought;
+                    switch(itemName){
+                        case "Colt Cobra":
+                            damage = 15;
+                            taskCompleted += "Colt Cobra";
+                        case "M1903 Springfield":
+                            damage = 20;
+                            taskCompleted += "M1903 Springfield";
+                        case "Browning Auto-5":
+                            damage = 25;
+                            taskCompleted += "Browning Auto-5";
+                        case "Elephant Rifle":
+                            damage = 30;
+                            taskCompleted += "Elephant Rifle";
+                        case "M198 Howitzer":
+                            damage = 100;
+                            taskCompleted += "M198 Howitzer";
+                    }
                 }
             }
             money -= (str.contains("already")) ? 0 : price;
@@ -431,7 +414,7 @@ public class WildWestOutlaw {
 
     public String bounty(int price, String member, int gainedHonor){
         String str = "";
-        if ((member1Saved && member.equals("Member 1")) || (member2Saved && member.equals("Member 2")) || (member3Saved && member.equals("Member 3")) || (member4Saved && member.equals("Member 4"))){
+        if ((taskCompleted.contains("Member 1") && member.equals("Member 1")) || (taskCompleted.contains("Member 2") && member.equals("Member 2")) || (taskCompleted.contains("Member 3") && member.equals("Member 3")) || (taskCompleted.contains("Member 4") && member.equals("Member 4"))){
             str += "   You have already paid this bounty";
         }
         else {
@@ -444,10 +427,10 @@ public class WildWestOutlaw {
                 setHonor(gainedHonor);
                 saved++;
                 switch (member){
-                    case "Member 1" -> member1Saved = true;
-                    case "Member 2" -> member2Saved = true;
-                    case "Member 3" -> member3Saved = true;
-                    case "Member 4" -> member4Saved = true;
+                    case "Member 1" -> taskCompleted += "Member 1";
+                    case "Member 2" -> taskCompleted += "Member 2";
+                    case "Member 3" -> taskCompleted += "Member 3";
+                    case "Member 4" -> taskCompleted += "Member 4";
                 }
             }
         }
