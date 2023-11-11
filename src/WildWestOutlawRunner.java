@@ -13,7 +13,7 @@ public class WildWestOutlawRunner {
         System.out.println("   You, " + name + ", are part of an outlaw group that has recently been torn apart due to a heist gone wrong\n   and now you need to pay off the bounties of the members that have been caught before they are executed.\n   Gather money, buy upgrades, and help those in town, but keep an eye on your time as you are on the clock." );
 
         while(!outlaw.isGameOver()){
-            System.out.print("\n   Actions (Day " + outlaw.getDay() + "):\n   1) Commit a crime\n   2) Help someone in need\n   3) View the store's catalogue\n   4) Check the jail\n   5) Check your stats\n   6) Help\n   7) Give up\n   > ");
+            System.out.print("\n   Actions (Days left " + (21 - outlaw.getDay()) + "):\n   1) Commit a crime\n   2) Help someone in need\n   3) View the store's catalogue\n   4) Check the jail\n   5) Check your stats\n   6) Help\n   7) Give up\n   > ");
             String action = s.nextLine();
             switch (action) {
                 case "1" -> {
@@ -48,7 +48,7 @@ public class WildWestOutlawRunner {
                     System.out.print(i.jail() + "   What would you like to do:\n   - 1 for pay a bounty\n   - 2 to go back\n   > ");
                     String choice = s.nextLine();
                     if (choice.equals("1")) {
-                        System.out.print(i.bountyList() + "   > ");
+                        System.out.print(outlaw.bountyList() + "\n   > ");
                         String bountyChoice = s.nextLine();
                         switch (bountyChoice) {
                             case "1" -> System.out.println(outlaw.payBounty(1));
@@ -72,6 +72,7 @@ public class WildWestOutlawRunner {
             if (dayCounter % 2 == 0){
                 outlaw.increaseDay();
             }
+            System.out.println(outlaw.executionCheck(dayCounter));
         }
     }
 }

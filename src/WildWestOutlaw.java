@@ -8,21 +8,23 @@ public class WildWestOutlaw {
     private int saved;
     private boolean gameOver;
     private int damage;
-    private String tasksCompleted;
+    private String itemsBought;
+    private String bountyInfo;
 
     Images i = new Images();
 
     public WildWestOutlaw (String n){
         name = n;
-        health = 1099990;
-        maxHealth = 1999900;
+        health = 999100;
+        maxHealth = 999100;
         money = 999990;
         honor = 0;
-        day = 1;
+        day = 5;
         saved = 0;
         gameOver = false;
         damage = 10;
-        tasksCompleted = "";
+        itemsBought = "";
+        bountyInfo = "";
     }
 
     public String help(){
@@ -43,6 +45,10 @@ public class WildWestOutlaw {
 
     public int getDay(){
         return day;
+    }
+
+    public String getBountyInfo(){
+        return bountyInfo;
     }
 
     public void increaseDay(){
@@ -317,50 +323,50 @@ public class WildWestOutlaw {
                 health = Math.min(health + change, maxHealth);
             }
             if (statAffected.equals("maxHealth")){
-                if (tasksCompleted.contains(itemName)){
+                if (itemsBought.contains(itemName)){
                     str += "\n   (You already bought this armor upgrade)";
                 }
                 else {
                     switch (itemName){
                         case "Cloth armor" -> {
                             maxHealth += 35;
-                            tasksCompleted += "Cloth armor";
+                            itemsBought += "Cloth armor";
                         }
                         case "Sturdy armor" -> {
                             maxHealth += 55;
-                            tasksCompleted += "Sturdy armor";
+                            itemsBought += "Sturdy armor";
                         }
                         case "Medieval armor" -> {
                             maxHealth += 65;
-                            tasksCompleted += "Medieval armor";
+                            itemsBought += "Medieval armor";
                         }
                     }
                 }
             }
             if (statAffected.equals("damage")){
-                if (tasksCompleted.contains(itemName)){
+                if (itemsBought.contains(itemName)){
                     str += "\n   (You already own this weapon and was not charged)";
                 }
                 switch (itemName) {
                     case "Colt Cobra" -> {
                         damage = 15;
-                        tasksCompleted += "Colt Cobra";
+                        itemsBought += "Colt Cobra";
                     }
                     case "M1903 Springfield" -> {
                         damage = 20;
-                        tasksCompleted += "M1903 Springfield";
+                        itemsBought += "M1903 Springfield";
                     }
                     case "Browning Auto-5" -> {
                         damage = 25;
-                        tasksCompleted += "Browning Auto-5";
+                        itemsBought += "Browning Auto-5";
                     }
                     case "Elephant Rifle" -> {
                         damage = 30;
-                        tasksCompleted += "Elephant Rifle";
+                        itemsBought += "Elephant Rifle";
                     }
                     case "M198 Howitzer" -> {
                         damage = 100;
-                        tasksCompleted += "M198 Howitzer";
+                        itemsBought += "M198 Howitzer";
                     }
                 }
             }
@@ -405,10 +411,23 @@ public class WildWestOutlaw {
         return str;
     }
 
+    public String bountyList(){
+        String str = "   _____________________________________\n" + "   |  Open Bounties:                   |\n";
+        str += bountyInfo.contains("Member 1") ? "   | Member 1         -           PAID |\n" : (bountyInfo.contains("Member dead1") ? "   | Member 1         -       EXECUTED |\n" :  "   | Member 1         -   1250 dollars |\n");
+        str += bountyInfo.contains("Member 2") ? "   | Member 2         -           PAID |\n" : (bountyInfo.contains("Member dead2") ? "   | Member 2         -       EXECUTED |\n" :  "   | Member 2         -   7500 dollars |\n");
+        str += bountyInfo.contains("Member 3") ? "   | Member 3         -           PAID |\n" : (bountyInfo.contains("Member dead3") ? "   | Member 3         -       EXECUTED |\n" :  "   | Member 3         -  25000 dollars |\n");
+        str += bountyInfo.contains("Member 4") ? "   | Member 4         -           PAID |\n" : (bountyInfo.contains("Member dead4") ? "   | Member 4         -       EXECUTED |\n" :  "   | Member 4         -  55000 dollars |\n");
+        str += "   _____________________________________\n   (5 to go back)";
+        return str;
+    }
+
     public String bounty(int price, String member, int gainedHonor){
         String str = "";
-        if ((tasksCompleted.contains(member))){
+        if ((bountyInfo.contains(member))){
             str += "   You have already paid this bounty";
+        }
+        else if (bountyInfo.contains(member.substring(0, 7) + "dead" + member.substring(7))){
+            str += "   This character has been executed";
         }
         else {
             if (money < price){
@@ -420,10 +439,10 @@ public class WildWestOutlaw {
                 setHonor(gainedHonor);
                 saved++;
                 switch (member){
-                    case "Member 1" -> tasksCompleted += "Member 1";
-                    case "Member 2" -> tasksCompleted += "Member 2";
-                    case "Member 3" -> tasksCompleted += "Member 3";
-                    case "Member 4" -> tasksCompleted += "Member 4";
+                    case "Member 1" -> bountyInfo += "Member 1";
+                    case "Member 2" -> bountyInfo += "Member 2";
+                    case "Member 3" -> bountyInfo += "Member 3";
+                    case "Member 4" -> bountyInfo += "Member 4";
                 }
             }
         }
@@ -437,6 +456,34 @@ public class WildWestOutlaw {
             case 2 -> str += bounty(7500, "Member 2", 35);
             case 3 -> str += bounty(25000, "Member 3", 50);
             case 4 -> str += bounty(55000, "Member 4", 75);
+        }
+        return str;
+    }
+
+    public String executionCheck(int dayCounter){
+        String str = "";
+        if (!bountyInfo.contains("Member 1") && day == 6){
+            bountyInfo += "Member dead1";
+            str += "\n   In the unforgiving expanse of the Wild West, Member 1 met his grim fate as the hangman's noose tightened around his neck.";
+            str += "\n   Swaying in the dusty wind, a silent testament to the justice sought for his crimes.";
+        }
+        else if (!bountyInfo.contains("Member 2") && day == 10){
+            bountyInfo += "Member dead2";
+            str += "\n   Amidst the rugged backdrop of the Wild West, Member 2 faced the relentless punishment of a firing squad.";
+            str += "\n   The crackling gunfire echoing through the vast, arid landscape, sealing the fate of a man condemned for his transgressions.";
+        }
+        else if (!bountyInfo.contains("Member 3") && day == 14){
+            bountyInfo += "Member dead3";
+            str += "\n   Beneath the scorching sun of the lawless frontier, Member 3 stood stoically before a hastily assembled makeshift gallows.";
+            str += "\n   There a cold-hearted marshal delivered justice with a swift and final swing of the frontier's unforgiving axe.";
+        }
+        else if (!bountyInfo.contains("Member 4") && day == 20){
+            bountyInfo += "Member dead4";
+            str += "\n   In the harsh desolation of the Wild West, Member 4 found himself bound to a weathered post, his fate sealed by the ominous rattle of a hangman's roulette.";
+            str += "\n   The metallic clicks echoing the irreversible countdown to the ultimate punishment for his sins.";
+        }
+        if (dayCounter % 2 != 0){
+            str = "";
         }
         return str;
     }

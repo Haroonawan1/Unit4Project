@@ -1,20 +1,6 @@
 public class Images {
     public Images () {}
 
-    public String bountyList(){
-        return """
-                   _____________________________________
-                   |  Open Bounties:                   |
-                   | Member 1         -   1250 dollars |
-                   | Member 2         -   7500 dollars |
-                   | Member 3         -  25000 dollars |
-                   | Member 4         -  55000 dollars |
-                   _____________________________________
-                   (5 to go back)
-                """;
-    }
-
-
     public String catalogue(){
         return """
                                                                          ,,,,,,gggggggggggg,,,                                                       ,,,,,,,,,,,
