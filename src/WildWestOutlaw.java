@@ -236,16 +236,23 @@ public class WildWestOutlaw {
     public String giveARide(){
         String str = "";
         if ((int) (Math.random() * 10) + 1 >= 6){
-            str += "\n   You find someone in need of a ride home\n";
+            str += "\n   You find someone in need of a ride home";
             //int random = (int) (Math.random() * 3) + 1;
             switch ((int) (Math.random() * 3) + 1) {
-                case 1 -> str += "   The person thanks you for the ride and you go on with your day.\n" + hint();
+                case 1 -> {
+                    str += "\n" + hint() + "   Expressing gratitude for the ride, the person bids farewell, leaving you to seamlessly resume your day.";
+                    str += "\n   The exchange, brief yet appreciative, lingers in the air as you continue on your path, the shared moment of goodwill resonating through the routine of daily life.";
+                }
                 case 2 -> {
                     int moneyLost = (int) (Math.random() * (money / 5));
                     money -= moneyLost;
-                    str += "   The person thank you for the ride but as you leave your pockets seem a little lighter.\n   Money lost: " + moneyLost + "\n";
+                    str += "\n   As gratitude is expressed for the ride, a subtle unease sets in as you depart. You realize that in the exchange, your pockets have lightened.";
+                    str += "\n   A hint of realization dawns, an unintended toll exacted by the act of kindness, leaving a bittersweet note to the concluded journey.\n   Money lost: " + moneyLost + "\n";
                 }
-                case 3 -> str += "   The person gets on your horse... and then... kicks you off! You run after him and get into a fight!\n" + fight(1);
+                case 3 -> {
+                    str += "\n   Mounting your horse, the person's gratitude takes an unexpected turn as a forceful kick sends you sprawling. Determined, you sprint after your horse who hasn't gone far.";
+                    str += "\n   You catch up and start a fierce brawl, the fight reminding you of the unforgiving nature of the frontier.\n" + fight(1);
+                }
             }
             setHonor(10);
         }
@@ -264,7 +271,8 @@ public class WildWestOutlaw {
     public String giveMoneyToThePoor(int x){
         String str = "";
         if (donatePossible(x)){
-            str = "\n   You decide to donate " + x + " to the poor. You are thanked and honored.";
+            str += "\n   You choose to donate " + x + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
+            str += "\n   Their eyes reflect a mix of surprise and appreciation for the unexpected act of kindness.";
             if (x > 10000){
                 setHonor(10);
             }
@@ -278,7 +286,8 @@ public class WildWestOutlaw {
                 setHonor(1);
             }
             if ((int) (Math.random() * 10) + 1 >= 8){
-                str += "\n   Before you get the chance to leave a homeless guy approaches you.\n" + hint();
+                str += "\n   As you prepare to leave, a weather-beaten homeless man, cloaked in tattered layers, weaves through the bustling corner.";
+                str += "\n   Their eyes reflecting both resilience and hardship, they catch your attention before you can leave.\n" + hint();
             }
         }
         else{
@@ -288,7 +297,8 @@ public class WildWestOutlaw {
     }
 
     public String stopAFight(){
-        String str = "\n   As you walk down a street in town you see a fight going on an go to intervene.";
+        String str = "\n   Amidst the sunlit street, the distant murmur of laughter gives way to a brewing brawl. You, maybe compelled by a sense of duty, stride toward the commotion.";
+        str += "\n   Dust swirls in the air as the two men fight and you can barely tell who is winning, but it doesn't matter as you walk toward the center of the scene.";
         int random = (int) (Math.random() * 10) + 1;
         if (random >= 7){
             str += "\n   You are able to make the two men stop fighting pretty quickly. They both walk of angry.\n";
