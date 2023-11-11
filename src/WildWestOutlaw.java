@@ -8,21 +8,21 @@ public class WildWestOutlaw {
     private int saved;
     private boolean gameOver;
     private int damage;
-    private String taskCompleted;
+    private String tasksCompleted;
 
     Images i = new Images();
 
     public WildWestOutlaw (String n){
         name = n;
-        health = 100;
-        maxHealth = 100;
-        money = 99999990;
+        health = 1099990;
+        maxHealth = 1999900;
+        money = 999990;
         honor = 0;
         day = 1;
         saved = 0;
         gameOver = false;
         damage = 10;
-        taskCompleted = "";
+        tasksCompleted = "";
     }
 
     public String help(){
@@ -87,15 +87,10 @@ public class WildWestOutlaw {
     public String fight(int x){
         String str = "";
         while (x > 0 && !gameOver){
-            int banditHealth = 50;
-            int lawEnforcerHealth = 75;
-            int bountyHunterHealth = 100;
-            int random = (int) (Math.random() * 3) + 1;
-
-            switch (random){
-                case 1 -> str += enemy("Bandit", banditHealth, 1);
-                case 2 -> str += enemy("Law Enforcer", lawEnforcerHealth, 2);
-                case 3 -> str += enemy("Bounty Hunter", bountyHunterHealth, 4);
+            switch ((int) (Math.random() * 3) + 1){
+                case 1 -> str += enemy("Bandit", 50, 1);
+                case 2 -> str += enemy("Law Enforcer", 75, 2);
+                case 3 -> str += enemy("Bounty Hunter", 100, 4);
             }
             x--;
         }
@@ -137,7 +132,8 @@ public class WildWestOutlaw {
     public String train(String t){
         String str = i.train();
         int moneyFound = 0;
-        if (t.equals("03:00") || t.equals("06:00") || t.equals("09:00") || t.equals("12:00") || t.equals("15:00") || t.equals("18:00") || t.equals("21:00") || t.equals("00:00")){
+        String possibleTimes = "03:00,06:00,09:00,12:00,15:00,18:00,21:00,00:00";
+        if (possibleTimes.contains(t)){
             int random = (int) (Math.random() * 10) + 1;
             str += "   As you approach the railway, you hear the sound of an upcoming train.\n";
             if (random <= 2){
@@ -235,17 +231,15 @@ public class WildWestOutlaw {
         String str = "";
         if ((int) (Math.random() * 10) + 1 >= 6){
             str += "\n   You find someone in need of a ride home\n";
-            int random = (int) (Math.random() * 3) + 1;
-            if (random == 1){
-                str += "   The person thanks you for the ride and you go on with your day.\n" + hint();
-            }
-            if (random == 2){
-                int moneyLost = (int) (Math.random() * (money/5));
-                money -= moneyLost;
-                str += "   The person thank you for the ride but as you leave your pockets seem a little lighter.\n   Money lost: " + moneyLost + "\n";
-            }
-            if (random == 3){
-                str += "   The person gets on your horse... and then... kicks you off! You run after him and get into a fight!\n" + fight(1);
+            //int random = (int) (Math.random() * 3) + 1;
+            switch ((int) (Math.random() * 3) + 1) {
+                case 1 -> str += "   The person thanks you for the ride and you go on with your day.\n" + hint();
+                case 2 -> {
+                    int moneyLost = (int) (Math.random() * (money / 5));
+                    money -= moneyLost;
+                    str += "   The person thank you for the ride but as you leave your pockets seem a little lighter.\n   Money lost: " + moneyLost + "\n";
+                }
+                case 3 -> str += "   The person gets on your horse... and then... kicks you off! You run after him and get into a fight!\n" + fight(1);
             }
             setHonor(10);
         }
@@ -257,11 +251,8 @@ public class WildWestOutlaw {
     }
 
     public boolean donatePossible(int x){
-        if (x <= money){
-            money -= x;
-            return true;
-        }
-        return false;
+        money -= (x <= money) ? x : 0;
+        return x <= money;
     }
 
     public String giveMoneyToThePoor(int x){
@@ -323,49 +314,53 @@ public class WildWestOutlaw {
         }
         else {
             if (statAffected.equals("health")){
-                health += change;
-                health = Math.min(health, maxHealth);
+                health = Math.min(health + change, maxHealth);
             }
             if (statAffected.equals("maxHealth")){
-                if ((taskCompleted.contains("Cloth armor") && itemName.equals("Cloth armor")) || (taskCompleted.contains("Sturdy armor") && itemName.equals("Sturdy armor")) || (taskCompleted.contains("Medieval armor") && itemName.equals("Medieval armor"))){
+                if (tasksCompleted.contains(itemName)){
                     str += "\n   (You already bought this armor upgrade)";
                 }
                 else {
                     switch (itemName){
-                        case "Cloth armor":
+                        case "Cloth armor" -> {
                             maxHealth += 35;
-                            taskCompleted += "Cloth armor";
-                        case "Sturdy armor":
+                            tasksCompleted += "Cloth armor";
+                        }
+                        case "Sturdy armor" -> {
                             maxHealth += 55;
-                            taskCompleted += "Sturdy armor";
-                        case "Medieval armor":
+                            tasksCompleted += "Sturdy armor";
+                        }
+                        case "Medieval armor" -> {
                             maxHealth += 65;
-                            taskCompleted += "Medieval armor";
-                        default: maxHealth += 0;
+                            tasksCompleted += "Medieval armor";
+                        }
                     }
                 }
             }
             if (statAffected.equals("damage")){
-                if ((taskCompleted.contains("Colt Cobra") && itemName.equals("Colt Cobra")) || (taskCompleted.contains("M1903 Springfield") && itemName.equals("M1903 Springfield")) || (taskCompleted.contains("Browning Auto-5") && itemName.equals("Browning Auto-5")) || (taskCompleted.contains("Elephant Rifle") && itemName.equals("Elephant Rifle")) || (taskCompleted.contains("M198 Howitzer") && itemName.equals("M198 Howitzer"))){
+                if (tasksCompleted.contains(itemName)){
                     str += "\n   (You already own this weapon and was not charged)";
                 }
-                else {
-                    switch(itemName){
-                        case "Colt Cobra":
-                            damage = 15;
-                            taskCompleted += "Colt Cobra";
-                        case "M1903 Springfield":
-                            damage = 20;
-                            taskCompleted += "M1903 Springfield";
-                        case "Browning Auto-5":
-                            damage = 25;
-                            taskCompleted += "Browning Auto-5";
-                        case "Elephant Rifle":
-                            damage = 30;
-                            taskCompleted += "Elephant Rifle";
-                        case "M198 Howitzer":
-                            damage = 100;
-                            taskCompleted += "M198 Howitzer";
+                switch (itemName) {
+                    case "Colt Cobra" -> {
+                        damage = 15;
+                        tasksCompleted += "Colt Cobra";
+                    }
+                    case "M1903 Springfield" -> {
+                        damage = 20;
+                        tasksCompleted += "M1903 Springfield";
+                    }
+                    case "Browning Auto-5" -> {
+                        damage = 25;
+                        tasksCompleted += "Browning Auto-5";
+                    }
+                    case "Elephant Rifle" -> {
+                        damage = 30;
+                        tasksCompleted += "Elephant Rifle";
+                    }
+                    case "M198 Howitzer" -> {
+                        damage = 100;
+                        tasksCompleted += "M198 Howitzer";
                     }
                 }
             }
@@ -376,28 +371,27 @@ public class WildWestOutlaw {
 
     public String shop(String s){
         String str = "";
-        int coltCobra = 175, m1903SpringField = 955, browningAuto5 = 6500, elephantRifle = 15750, m198Howitzer = 112007;
-        int apple = 10, loafOfBread = 20, steak = 35;
-        int clothArmor = 150, sturdyArmor = 1545, medievalArmor = 26740;
-        int preHealth = health, preDamage = damage, preMaxHealth = maxHealth;
+        int preHealth = health;
+        int preDamage = damage;
+        int preMaxHealth = maxHealth;
 
         switch (s) {
-            case "Apple" -> str += item(apple, "health", 15, "Apple");
-            case "Loaf of Bread" -> str += item(loafOfBread, "health", 45, "Loaf of Bread");
-            case "Steak" -> str += item(steak, "health", 90, "Steak");
-            case "Cloth armor" -> str += item(clothArmor, "maxHealth", 35, "Cloth armor");
-            case "Sturdy armor" -> str += item(sturdyArmor, "maxHealth", 55, "Sturdy armor");
-            case "Medieval armor" -> str += item(medievalArmor, "maxHealth", 65, "Medieval armor");
-            case "Colt Cobra" -> str += item(coltCobra, "damage", 15, "Colt Cobra");
-            case "M1903 Springfield" -> str += item(m1903SpringField, "damage", 20, "M1903 Springfield");
-            case "Browning Auto-5" -> str += item(browningAuto5, "damage", 25, "Browning Auto-5");
-            case "Elephant Rifle" -> str += item(elephantRifle, "damage", 30, "Elephant Rifle");
-            case "M198 Howitzer" -> str += item(m198Howitzer, "damage", 100, "M198 Howitzer");
+            case "Apple" -> str += item(10, "health", 15, "Apple");
+            case "Loaf of Bread" -> str += item(20, "health", 45, "Loaf of Bread");
+            case "Steak" -> str += item(35, "health", 90, "Steak");
+            case "Cloth armor" -> str += item(150, "maxHealth", 35, "Cloth armor");
+            case "Sturdy armor" -> str += item(1545, "maxHealth", 55, "Sturdy armor");
+            case "Medieval armor" -> str += item(26740, "maxHealth", 65, "Medieval armor");
+            case "Colt Cobra" -> str += item(175, "damage", 15, "Colt Cobra");
+            case "M1903 Springfield" -> str += item(955, "damage", 20, "M1903 Springfield");
+            case "Browning Auto-5" -> str += item(6500, "damage", 25, "Browning Auto-5");
+            case "Elephant Rifle" -> str += item(15750, "damage", 30, "Elephant Rifle");
+            case "M198 Howitzer" -> str += item(112007, "damage", 100, "M198 Howitzer");
             default -> str += "   That is not an item on the catalogue";
         }
 
         if (str.equals("   You do not have enough money to buy that item.") || str.equals("   That is not an item on the catalogue")){
-            str = str;
+            str += "";
         }
         else if (s.equals("Apple") || s.equals("Loaf of Bread") || s.equals("Steak")){
             str += "\n   Your previous health was " + preHealth + ".\n   Your current health is " + health + ".";
@@ -408,13 +402,12 @@ public class WildWestOutlaw {
         else {
             str += "\n   Your previous damage was " + preDamage + ".\n   Your current damage is " + damage + ".";
         }
-
         return str;
     }
 
     public String bounty(int price, String member, int gainedHonor){
         String str = "";
-        if ((taskCompleted.contains("Member 1") && member.equals("Member 1")) || (taskCompleted.contains("Member 2") && member.equals("Member 2")) || (taskCompleted.contains("Member 3") && member.equals("Member 3")) || (taskCompleted.contains("Member 4") && member.equals("Member 4"))){
+        if ((tasksCompleted.contains(member))){
             str += "   You have already paid this bounty";
         }
         else {
@@ -427,10 +420,10 @@ public class WildWestOutlaw {
                 setHonor(gainedHonor);
                 saved++;
                 switch (member){
-                    case "Member 1" -> taskCompleted += "Member 1";
-                    case "Member 2" -> taskCompleted += "Member 2";
-                    case "Member 3" -> taskCompleted += "Member 3";
-                    case "Member 4" -> taskCompleted += "Member 4";
+                    case "Member 1" -> tasksCompleted += "Member 1";
+                    case "Member 2" -> tasksCompleted += "Member 2";
+                    case "Member 3" -> tasksCompleted += "Member 3";
+                    case "Member 4" -> tasksCompleted += "Member 4";
                 }
             }
         }
@@ -439,12 +432,11 @@ public class WildWestOutlaw {
 
     public String payBounty(int x){
         String str = "";
-        int member1Price = 1250, member2Price = 7500, member3Price = 25000, member4Price = 55000;
         switch (x){
-            case 1 -> str += bounty(member1Price, "Member 1", 25);
-            case 2 -> str += bounty(member2Price, "Member 2", 35);
-            case 3 -> str += bounty(member3Price, "Member 3", 50);
-            case 4 -> str += bounty(member4Price, "Member 4", 75);
+            case 1 -> str += bounty(1250, "Member 1", 25);
+            case 2 -> str += bounty(7500, "Member 2", 35);
+            case 3 -> str += bounty(25000, "Member 3", 50);
+            case 4 -> str += bounty(55000, "Member 4", 75);
         }
         return str;
     }
@@ -458,7 +450,8 @@ public class WildWestOutlaw {
             str += "\n                                                  You ended your journey";
             gameOver = true;
         }
-        str += "\n                                             This concludes the legend of " + name + "\n______________________________________________________________________________________________________________________________";
+        str += "\n                                             This concludes the legend of " + name;
+        str += "\n______________________________________________________________________________________________________________________________";
         return str;
     }
 }
