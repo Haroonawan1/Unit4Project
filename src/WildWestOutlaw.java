@@ -15,11 +15,11 @@ public class WildWestOutlaw {
 
     public WildWestOutlaw (String n){
         name = n;
-        health = 999100;
-        maxHealth = 999100;
-        money = 999990;
+        health = 100;
+        maxHealth = 100;
+        money = 0;
         honor = 0;
-        day = 19;
+        day = 1;
         saved = 0;
         gameOver = false;
         damage = 10;
@@ -113,7 +113,7 @@ public class WildWestOutlaw {
     }
 
     public String robStageCoach(){
-        String str = i.stageCoach();
+        String str = i.getRobStageCoachImage();
         int moneyFound = 0;
         if ((int) (Math.random() * 10) + 1 > 3){
             int random = (int) (Math.random() * 10) + 1;
@@ -133,19 +133,19 @@ public class WildWestOutlaw {
             setHonor(-5);
         }
         else {
-            str += "   You search for a stagecoach and find nothing interesting except for 10 dollars on the floor.\n";
+            str += "   You search for a stagecoach and find nothing interesting except for 45 dollars on the floor.\n";
             moneyFound += 10;
             setHonor(-3);
         }
         if (!gameOver) {
-            money += moneyFound;
-            str += "\n   Money Found: " + moneyFound + "\n";
+            money += moneyFound + 35;
+            str += "\n   Money Found: " + (moneyFound + 35) + "\n";
         }
         return str;
     }
 
     public String robTrain(String t){
-        String str = i.train();
+        String str = i.getRobTrainImage();
         int moneyFound = 0;
         String possibleTimes = "03:00,06:00,09:00,12:00,15:00,18:00,21:00,00:00";
         if (possibleTimes.contains(t)){
@@ -181,7 +181,7 @@ public class WildWestOutlaw {
     }
 
     public String robBank(String t){
-        String str = i.bank();
+        String str = i.getRobBankImage();
         String openTime = "08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00";
         int moneyFound = 0;
         int random = (int) (Math.random() * 10) + 1;
@@ -246,8 +246,7 @@ public class WildWestOutlaw {
     public String giveARide(){
         String str = "";
         if ((int) (Math.random() * 10) + 1 >= 6){
-            str += "\n   You find someone in need of a ride home";
-            //int random = (int) (Math.random() * 3) + 1;
+            str += "\n" + i.getGiveARideImage() + "\n   You find someone in need of a ride home";
             switch ((int) (Math.random() * 3) + 1) {
                 case 1 -> {
                     str += "\n" + giveHint() + "   Expressing gratitude for the ride, the person bids farewell, leaving you to seamlessly resume your day.";
@@ -267,7 +266,7 @@ public class WildWestOutlaw {
             setHonor(10);
         }
         else {
-            str += "\n   You did not find anyone to help.";
+            str += i.getGiveARideImage2() + "\n   You did not find anyone to help.";
             setHonor(5);
         }
         return str;
@@ -281,7 +280,7 @@ public class WildWestOutlaw {
     public String donateMoney(int x){
         String str = "";
         if (isDonatePossible(x)){
-            str += "\n   You choose to donate " + x + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
+            str += i.getDonateMoneyImage() + "\n   You choose to donate " + x + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
             str += "\n   Their eyes reflect a mix of surprise and appreciation for the unexpected act of kindness.";
             if (x > 10000){
                 setHonor(10);
@@ -307,7 +306,7 @@ public class WildWestOutlaw {
     }
 
     public String stopAFight(){
-        String str = "\n   Amidst the sunlit street, the distant murmur of laughter gives way to a brewing brawl. You, maybe compelled by a sense of duty, stride toward the commotion.";
+        String str = i.getStopAFightImage() + "\n   Amidst the sunlit street, the distant murmur of laughter gives way to a brewing brawl. You, maybe compelled by a sense of duty, stride toward the commotion.";
         str += "\n   Dust swirls in the air as the two men fight and you can barely tell who is winning, but it doesn't matter as you walk toward the center of the scene.";
         int random = (int) (Math.random() * 10) + 1;
         if (random >= 7){
@@ -477,24 +476,24 @@ public class WildWestOutlaw {
 
     public String executionCheck(int dayCounter){
         String str = "";
-        if (!bountyInfo.contains("Member 1") && day == 6){
+        if (!bountyInfo.contains("Member 1") && day == 9){
             bountyInfo += "Member dead1";
-            str += "\n   In the unforgiving expanse of the Wild West, Member 1 met his grim fate as the hangman's noose tightened around his neck.";
+            str += "\n\n   In the unforgiving expanse of the Wild West, Member 1 met his grim fate as the hangman's noose tightened around his neck.";
             str += "\n   Swaying in the dusty wind, a silent testament to the justice sought for his crimes.";
         }
-        else if (!bountyInfo.contains("Member 2") && day == 10){
+        else if (!bountyInfo.contains("Member 2") && day == 14){
             bountyInfo += "Member dead2";
-            str += "\n   Amidst the rugged backdrop of the Wild West, Member 2 faced the relentless punishment of a firing squad.";
+            str += "\n\n   Amidst the rugged backdrop of the Wild West, Member 2 faced the relentless punishment of a firing squad.";
             str += "\n   The crackling gunfire echoing through the vast, arid landscape, sealing the fate of a man condemned for his transgressions.";
         }
-        else if (!bountyInfo.contains("Member 3") && day == 14){
+        else if (!bountyInfo.contains("Member 3") && day == 22){
             bountyInfo += "Member dead3";
-            str += "\n   Beneath the scorching sun of the lawless frontier, Member 3 stood stoically before a hastily assembled makeshift gallows.";
+            str += "\n\n   Beneath the scorching sun of the lawless frontier, Member 3 stood stoically before a hastily assembled makeshift gallows.";
             str += "\n   There a cold-hearted marshal delivered justice with a swift and final swing of the frontier's unforgiving axe.";
         }
-        else if (!bountyInfo.contains("Member 4") && day == 18){
+        else if (!bountyInfo.contains("Member 4") && day == 28){
             bountyInfo += "Member dead4";
-            str += "\n   In the harsh desolation of the Wild West, Member 4 found himself bound to a weathered post, his fate sealed by the ominous rattle of a hangman's roulette.";
+            str += "\n\n   In the harsh desolation of the Wild West, Member 4 found himself bound to a weathered post, his fate sealed by the ominous rattle of a hangman's roulette.";
             str += "\n   The metallic clicks echoing the irreversible countdown to the ultimate punishment for his sins.";
         }
         if (dayCounter % 2 != 0){
@@ -638,7 +637,7 @@ public class WildWestOutlaw {
             }
             gameOver = true;
         }
-        str += "\n                                                                  This concludes the legend of " + name;
+        str += "\n                                                             This concludes the legend of " + name;
         str += "\n___________________________________________________________________________________________________________________________________________________________________________";
         return str;
     }

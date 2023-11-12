@@ -13,7 +13,7 @@ public class WildWestOutlawRunner {
         System.out.println("   You, " + name + ", are part of an outlaw group that has recently been torn apart due to a heist gone wrong\n   and now you need to pay off the bounties of the members that have been caught before they are executed.\n   Gather money, buy upgrades, and help those in town, but keep an eye on your time as you are on the clock.\n");
 
         while(!outlaw.isGameOver()){
-            System.out.print("   Actions (Days left " + (21 - outlaw.getDay()) + "):\n   1) Commit a crime\n   2) Help someone in need\n   3) View the store's catalogue\n   4) Check the jail\n   5) Check your stats\n   6) Help\n   7) Give up\n   > ");
+            System.out.print("   Actions (Days left " + (31 - outlaw.getDay()) + "):\n   1) Commit a crime\n   2) Help someone in need\n   3) View the store's catalogue\n   4) Check the jail\n   5) Check your stats\n   6) Help\n   7) Give up\n   > ");
             String action = s.nextLine();
             switch (action) {
                 case "1" -> {
@@ -22,6 +22,7 @@ public class WildWestOutlawRunner {
                     System.out.print("\n   What time will you attempt this: \n   (hours only, military time, example: 09:00)\n   > ");
                     String time = s.nextLine();
                     System.out.print((outlaw.isInputNumerical(robberyChoice)) ? "\n" + outlaw.commitCrime(Integer.parseInt(robberyChoice), time) : "\n   (The first input must be a number)");
+                    dayCounter++;
                 }
                 case "2" -> {
                     System.out.print("\n   What good deed do you want to attempt\n   - 1 for giving someone a ride home\n   - 2 for donating money to the poor\n   - 3 for stopping a fight\n   > ");
@@ -32,15 +33,17 @@ public class WildWestOutlawRunner {
                             int donation = Integer.parseInt(s.nextLine());
                             System.out.println(outlaw.doAGoodDeed(Integer.parseInt(goodDeedChoice), donation));
                         } else {
-                            System.out.println(outlaw.doAGoodDeed(Integer.parseInt(goodDeedChoice), 0));
+                            System.out.print
+                                    (outlaw.doAGoodDeed(Integer.parseInt(goodDeedChoice), 0));
                         }
                     }
                     else {
                         System.out.println("\n   (You must input a numerical value)");
                     }
+                    dayCounter++;
                 }
                 case "3" -> {
-                    System.out.println(i.catalogue());
+                    System.out.println(i.getCatalogueImage());
                     String keepShopping = "y";
                     while (keepShopping.equals("y")) {
                         System.out.print("\n   What item would you like to purchase (write the full name):\n   > ");
@@ -53,7 +56,7 @@ public class WildWestOutlawRunner {
                     }
                 }
                 case "4" -> {
-                    System.out.print(i.jail() + "   What would you like to do:\n   - 1 for pay a bounty\n   - 2 to go back\n   > ");
+                    System.out.print(i.getJailImage() + "   What would you like to do:\n   - 1 for pay a bounty\n   - 2 to go back\n   > ");
                     String choice = s.nextLine();
                     switch (choice) {
                         case "1" -> {
@@ -77,7 +80,6 @@ public class WildWestOutlawRunner {
                 case "7" -> System.out.println("\n" + outlaw.endGame("ended early"));
                 default -> System.out.print("\n   (That is not an acceptable input)");
             }
-            dayCounter++;
             if (dayCounter % 2 == 0){
                 outlaw.increaseDay();
             }
