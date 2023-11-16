@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class WildWestOutlawRunner {
+public class OutlawRedemptionRunner {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         System.out.print("   What is your name: ");
         String name = s.nextLine();
-        WildWestOutlaw outlaw = new WildWestOutlaw(name);
-        Images i = new Images();
+        OutlawRedemption outlaw = new OutlawRedemption(name);
+        Images image = new Images();
         int dayCounter = 0;
 
         System.out.println("__________________________________________________________________________| Wild West Outlaw |_____________________________________________________________________________");
@@ -43,7 +43,7 @@ public class WildWestOutlawRunner {
                     dayCounter++;
                 }
                 case "3" -> {
-                    System.out.println(i.getCatalogueImage());
+                    System.out.println(image.getCatalogueImage());
                     String keepShopping = "y";
                     while (keepShopping.equals("y")) {
                         System.out.print("\n   What item would you like to purchase (write the full name):\n   > ");
@@ -56,7 +56,7 @@ public class WildWestOutlawRunner {
                     }
                 }
                 case "4" -> {
-                    System.out.print(i.getJailImage() + "   What would you like to do:\n   - 1 for pay a bounty\n   - 2 to go back\n   > ");
+                    System.out.print(image.getJailImage() + "   What would you like to do:\n   - 1 for pay a bounty\n   - 2 to go back\n   > ");
                     String choice = s.nextLine();
                     switch (choice) {
                         case "1" -> {

@@ -1,4 +1,4 @@
-public class WildWestOutlaw {
+public class OutlawRedemption {
     private String name;
     private int health;
     private int maxHealth;
@@ -11,9 +11,9 @@ public class WildWestOutlaw {
     private String itemsBought;
     private String bountyInfo;
 
-    Images i = new Images();
+    Images image = new Images();
 
-    public WildWestOutlaw (String n){
+    public OutlawRedemption (String n){
         name = n;
         health = 100;
         maxHealth = 100;
@@ -113,7 +113,7 @@ public class WildWestOutlaw {
     }
 
     public String robStageCoach(){
-        String str = i.getRobStageCoachImage();
+        String str = image.getRobStageCoachImage();
         int moneyFound = 0;
         if ((int) (Math.random() * 10) + 1 > 3){
             int random = (int) (Math.random() * 10) + 1;
@@ -145,7 +145,7 @@ public class WildWestOutlaw {
     }
 
     public String robTrain(String t){
-        String str = i.getRobTrainImage();
+        String str = image.getRobTrainImage();
         int moneyFound = 0;
         String possibleTimes = "03:00,06:00,09:00,12:00,15:00,18:00,21:00,00:00";
         if (possibleTimes.contains(t)){
@@ -181,7 +181,7 @@ public class WildWestOutlaw {
     }
 
     public String robBank(String t){
-        String str = i.getRobBankImage();
+        String str = image.getRobBankImage();
         String openTime = "08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00";
         int moneyFound = 0;
         int random = (int) (Math.random() * 10) + 1;
@@ -246,7 +246,7 @@ public class WildWestOutlaw {
     public String giveARide(){
         String str = "";
         if ((int) (Math.random() * 10) + 1 >= 6){
-            str += "\n" + i.getGiveARideImage() + "\n   You find someone in need of a ride home";
+            str += "\n" + image.getGiveARideImage() + "\n   You find someone in need of a ride home";
             switch ((int) (Math.random() * 3) + 1) {
                 case 1 -> {
                     str += "\n" + giveHint() + "   Expressing gratitude for the ride, the person bids farewell, leaving you to seamlessly resume your day.";
@@ -266,7 +266,7 @@ public class WildWestOutlaw {
             setHonor(10);
         }
         else {
-            str += i.getGiveARideImage2() + "\n   You did not find anyone to help.";
+            str += image.getGiveARideImage2() + "\n   You did not find anyone to help.";
             setHonor(5);
         }
         return str;
@@ -280,7 +280,7 @@ public class WildWestOutlaw {
     public String donateMoney(int x){
         String str = "";
         if (isDonatePossible(x)){
-            str += i.getDonateMoneyImage() + "\n   You choose to donate " + x + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
+            str += image.getDonateMoneyImage() + "\n   You choose to donate " + x + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
             str += "\n   Their eyes reflect a mix of surprise and appreciation for the unexpected act of kindness.";
             if (x > 10000){
                 setHonor(10);
@@ -306,7 +306,7 @@ public class WildWestOutlaw {
     }
 
     public String stopAFight(){
-        String str = i.getStopAFightImage() + "\n   Amidst the sunlit street, the distant murmur of laughter gives way to a brewing brawl. You, maybe compelled by a sense of duty, stride toward the commotion.";
+        String str = image.getStopAFightImage() + "\n   Amidst the sunlit street, the distant murmur of laughter gives way to a brewing brawl. You, maybe compelled by a sense of duty, stride toward the commotion.";
         str += "\n   Dust swirls in the air as the two men fight and you can barely tell who is winning, but it doesn't matter as you walk toward the center of the scene.";
         int random = (int) (Math.random() * 10) + 1;
         if (random >= 7){
