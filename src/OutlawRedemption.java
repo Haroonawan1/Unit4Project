@@ -13,6 +13,12 @@ public class OutlawRedemption {
 
     Images image = new Images();
 
+
+    /**
+     * Constructor for the OutlawRedemption class. This creates a new instance of the OutlawRedemption class with the below parameters.
+     *
+     * @param userName represents the name of the user's character
+     */
     public OutlawRedemption (String userName){
         name = userName;
         health = 100;
@@ -27,6 +33,12 @@ public class OutlawRedemption {
         bountyInfo = "";
     }
 
+    /**
+     * The isInputNumerical method will check if the String given represents a numerical value using a try catch block
+     *
+     * @param input represents the input a user has already made
+     * @return returns a boolean regarding if the input is numerical
+     */
     public boolean isInputNumerical(String input){
         try {
             Integer.parseInt(input);
@@ -37,6 +49,11 @@ public class OutlawRedemption {
         }
     }
 
+    /**
+     * The getHelp method will assist the user with the game by giving them some information to start out
+     *
+     * @return returns a string that contains information to help someone start out in the game
+     */
     public String getHelp(){
         return """
                    _____________________________________________________________________________________________________________________
@@ -52,18 +69,37 @@ public class OutlawRedemption {
                 """;
     }
 
+    /**
+     * The isGameOver method allows the instance variable gameOver to be checked outside the class
+     *
+     * @return returns the value of gameOver, which is a boolean
+     */
     public boolean isGameOver(){
         return gameOver;
     }
 
+    /**
+     * The getDay method allows the instance variable day to be checked outside the class
+     *
+     * @return returns the value of day, which is an integer
+     */
     public int getDay(){
         return day;
     }
 
+    /**
+     * The increaseDay method increases the value of day by one
+     */
     public void increaseDay(){
         day++;
     }
 
+    /**
+     * The getStats method allows the user to see their stats, useful especially for stats not shown in other methods
+     * throughout the game such as your honor
+     *
+     * @return returns a formatted String that contains all the statistics of the user's character at the moment ran
+     */
     public String getStats(){
         String str = "\n   ____________________________";
         str += "\n    Your current statistics:\n";
@@ -73,7 +109,12 @@ public class OutlawRedemption {
         return str;
     }
 
-    public void setHonor(int change){
+    /**
+     * The changeHonor method changes the value of the instance variable honor
+     *
+     * @param change represents the change that will occur to the instance variable honor
+     */
+    public void changeHonor(int change){
         honor += change;
         if (honor > 100){
             honor = 100;
@@ -83,6 +124,14 @@ public class OutlawRedemption {
         }
     }
 
+    /**
+     * The fightEnemy method simulates a fight between the character of the user and an enemy
+     *
+     * @param name represents the name of the enemy being fought
+     * @param enemyHealth - represents the health of the enemy being fought
+     * @param enemyDamage - represents the damage the enemy being fought does
+     * @return returns a String that has information regarding the outcome of the fight
+     */
     public String fightEnemy(String name, int enemyHealth, int enemyDamage){
         String str = "\n   You begin fighting a " + name + "\n";
         while (health > 0 && enemyHealth > 0) {
@@ -99,6 +148,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The fightGroup method simulates a fight between the character of the user and a group of enemies, it calls the
+     * fightEnemy method for each enemy in the group
+     *
+     * @param groupSize represents the amount of enemies that need to be fought
+     * @return returns a String that contains all the results of fighting each enemy
+     */
     public String fightGroup(int groupSize){
         String str = "";
         while (groupSize > 0 && !gameOver){
@@ -112,6 +168,10 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     *
+     * @return
+     */
     public String robStageCoach(){
         String str = image.getRobStageCoachImage();
         int moneyFound = 0;
@@ -130,12 +190,12 @@ public class OutlawRedemption {
                 str += "   The stagecoach is heavily guarded, this will be a tough fight but all those men must be guarding something valuable.\n" + fightGroup(4);
                 moneyFound = (int) (Math.random() * 50) + 50;
             }
-            setHonor(-5);
+            changeHonor(-5);
         }
         else {
             str += "   You search for a stagecoach and find nothing interesting except for 45 dollars on the floor.\n";
             moneyFound += 10;
-            setHonor(-3);
+            changeHonor(-3);
         }
         if (!gameOver) {
             money += moneyFound + 35;
@@ -167,11 +227,11 @@ public class OutlawRedemption {
                 str += "   The train looks luxurious! The second you jump on people start shooting at you!.\n" + fightGroup(8);
                 moneyFound = (int) (Math.random() * 500) + 500;
             }
-            setHonor(-10);
+            changeHonor(-10);
         }
         else{
             str += "   You wait and wait but no train appears, you leave the tracks with nothing";
-            setHonor(-5);
+            changeHonor(-5);
         }
         if (!gameOver) {
             money += moneyFound;
@@ -206,11 +266,11 @@ public class OutlawRedemption {
                 str += "   The bank is full of guards right now, this usually means the bank is full of money too!\n" + fightGroup(12 + x);
                 moneyFound = (int) (Math.random() * 5000) + 5000;
             }
-            setHonor(-20);
+            changeHonor(-20);
         }
         else {
             str += "   The bank is not open right now, you are unable to rob it, try again some other time.";
-            setHonor(-10);
+            changeHonor(-10);
         }
         if (!gameOver) {
             money += moneyFound;
@@ -263,11 +323,11 @@ public class OutlawRedemption {
                     str += "\n   You catch up and start a fierce brawl, the fight reminding you of the unforgiving nature of the frontier.\n" + fightGroup(1);
                 }
             }
-            setHonor(10);
+            changeHonor(10);
         }
         else {
             str += image.getGiveARideImage2() + "\n   You did not find anyone to help.";
-            setHonor(5);
+            changeHonor(5);
         }
         return str;
     }
@@ -283,16 +343,16 @@ public class OutlawRedemption {
             str += image.getDonateMoneyImage() + "\n   You choose to donate " + donation + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
             str += "\n   Their eyes reflect a mix of surprise and appreciation for the unexpected act of kindness.";
             if (donation > 10000){
-                setHonor(10);
+                changeHonor(10);
             }
             else if (donation > 1000){
-                setHonor(5);
+                changeHonor(5);
             }
             else if (donation > 100){
-                setHonor(3);
+                changeHonor(3);
             }
             else {
-                setHonor(1);
+                changeHonor(1);
             }
             if ((int) (Math.random() * 10) + 1 >= 8){
                 str += "\n   As you prepare to leave, a weather-beaten homeless man, cloaked in tattered layers, weaves through the bustling corner.";
@@ -318,7 +378,7 @@ public class OutlawRedemption {
         else {
             str += "\n   Both men decide to stop fighting with a little bit of convincing... and then decide to fight you!\n" + fightGroup(2);
         }
-        setHonor(8);
+        changeHonor(8);
         return str;
     }
 
@@ -450,7 +510,7 @@ public class OutlawRedemption {
             else {
                 str += "   You buy the bounty of " + member + ", he is very happy. You become more honorable";
                 money -= price;
-                setHonor(gainedHonor);
+                changeHonor(gainedHonor);
                 saved++;
                 switch (member){
                     case "Member 1" -> bountyInfo += "Member 1";

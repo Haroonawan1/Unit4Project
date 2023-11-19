@@ -39,7 +39,7 @@ Methods:
     public String getStats()
         The method returns the current stats of the character. These stats include health, maxHealth, money, honor, damage, and saved.
 
-    public void setHonor(int change)
+    public void changeHonor(int change)
         The method adds the value of change to the current value of honor. If honor goes below -100 it is set to -100. If honor goes above 100 it is set to 100.
 
     public String fightEnemy(String name, int enemyHealth, int enemyDamage)
