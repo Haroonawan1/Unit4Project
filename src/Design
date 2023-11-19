@@ -1,8 +1,5 @@
 WildWestOutlaw class
 
-// rename certain methods
-
-
 Instance Variables:
     private String name - this variable represents the name of the character the user controls
     private int health - this variable represents the health of the character the user controls
@@ -13,29 +10,21 @@ Instance Variables:
     private int saved - this variable represents how many gang members have been saved
     private boolean gameOver - this variable represents if the game should end or not
     private int damage - this variable represents the current damage the user does
-
-    private boolean member1Saved - this variable represents if the bounty of member 1 has been paid off
-    private boolean member2Saved - this variable represents if the bounty of member 2 has been paid off
-    private boolean member3Saved - this variable represents if the bounty of member 3 has been paid off
-    private boolean member4Saved - this variable represents if the bounty of member 4 has been paid off
-
-    private boolean weapon1Bought - this variable represents if weapon 1 has been bought
-    private boolean weapon2Bought - this variable represents if weapon 2 has been bought
-    private boolean weapon3Bought - this variable represents if weapon 3 has been bought
-    private boolean weapon4Bought - this variable represents if weapon 4 has been bought
-    private boolean weapon5Bought - this variable represents if weapon 5 has been bought
-
-    private armor1Bought - this variable represents if armor 1 has been bought
-    private armor2Bought - this variable represents if armor 2 has been bought
-    private armor3Bought - this variable represents if armor 3 has been bought
+    private String itemsBought - this variable represents all the items the user has already bought so that they are not
+                                 charged multiple times, it starts empty and is added on to when items are purchased
+    private String bountyInfo - this variable represents all the information about bounties that needs to be checked
+                                such as if they are executed and if the user has already paid for a certain bounty
 
 Constructor:
-    public WildWestOutlaw(String n)
-        The constructor will take n and assign it to the instance variable name. It will then assign a default value to the variable health, maxHealth, money, honor,
+    public WildWestOutlaw(String userName)
+        The constructor will take userName and assign it to the instance variable name. It will then assign a default value to the variable health, maxHealth, money, honor,
         day, saved, and gameOver. All "member saved" variables and "bought" variables will be set to false.
 
 Methods:
-    public String help()
+    public boolean isInputNumerical(String input)
+        This method will determine if the input the user gives is numerical or not using a try catch block
+
+    public String getHelp()
         This method will print a string informing the user of what can be done in the game to get them started.
 
     public boolean isGameOver()
@@ -50,88 +39,101 @@ Methods:
     public String getStats()
         The method returns the current stats of the character. These stats include health, maxHealth, money, honor, damage, and saved.
 
-    public void setHonor(int x)
-        The method adds the value of x to the current value of honor. If honor goes below -100 it is set to -100. If honor goes above 100 it is set to 100.
+    public void setHonor(int change)
+        The method adds the value of change to the current value of honor. If honor goes below -100 it is set to -100. If honor goes above 100 it is set to 100.
 
-    public String enemy(String name, int enemyHealth, int enemyDamage)
+    public String fightEnemy(String name, int enemyHealth, int enemyDamage)
         The method takes the name, health, and damage the enemy does from what is inputted, and simulates a battle between the character and the current enemy. The
         results of the battle are added to a variable as a string and then the variable is returned.
 
-    public String fight(int x)
-         The method has a while loop that runs x amount of times. Each iteration will select a random enemy for the character to fight and will then simulate the fight
-         using the enemy method. Each string returned from the enemy method is added to a variable which is then returned once each battle has finished. If the user runs
+    public String fightGroup(int groupSize)
+         The method has a while loop that runs groupSize amount of times. Each iteration will select a random enemy for the character to fight and will then simulate the fight
+         using the fightEnemy() method. Each string returned from the fightEnemy() method is added to a variable which is then returned once each battle has finished. If the user runs
          out of health, an ending is printed, the battles stop early, the game ends, and the program ends.
 
-    public String stageCoach()
+    public String robStageCoach()
         The method will use Math.random() to determine how easily the user robs a stagecoach and how many people the user will fight. The money gotten
-        from the robbery is added to the money variable and information about the crime is returned as string. Fights are simulated using the fight() method. Crime will
+        from the robbery is added to the money variable and information about the crime is returned as string. Fights are simulated using the fightGroup() method. Crime will
         decrease honor. An image of a stagecoach will be printed.
 
-    public String train(String t)
-        The method will use t to determine if the user finds a train. On the train, Math.random() will be used to determine how many people the user will fight and how
+    public String robTrain(String time)
+        The method will use time to determine if the user finds a train. On the train, Math.random() will be used to determine how many people the user will fight and how
         much money is found. The money gotten from the robbery is added to the money variable and information about the crime is returned as string. Fights are simulated
-        using the fight() method. Crime will decrease honor. An image of a train will be printed.
+        using the fightGroup() method. Crime will decrease honor. An image of a train will be printed.
 
-    public String bank(String t)
-        The method will use t to determine if the user goes to the bank when it's open and will affect how many people the user needs to fight. Math.random() will also be
+    public String robBank(String time)
+        The method will use time to determine if the user goes to the bank when it's open and will affect how many people the user needs to fight. Math.random() will also be
         used to determine how many people the user will fight and how much money is found. The money gotten from the robbery is added to the money variable and information
-        about the crime is returned as string. Fights are simulated using the fight() method. Crime will decrease honor. An image of some gold will be printed.
+        about the crime is returned as string. Fights are simulated using the fightGroup() method. Crime will decrease honor. An image of some gold will be printed.
 
-    public String crime(int x, String t)
-        This method will take a int, x, which will determine which crime the user wants to do and string, t, to see what time the user will do the crime. The three
-        crimes consist of robbing a stagecoach, robbing a train, and robbing a bank. A string containing the results of the crime chosen will be returned.
+    public String commitCrime(int choice, String time)
+        This method will take choice, which will determine which crime the user wants to do, and time, to see what time the user will do the crime. The three
+        crimes consist of robbing a stagecoach, robbing a train, and robbing a bank. A string containing the results of the crime chosen will be returned with the results of
+        the appropriate method.
 
-    public String hint()
+    public String giveHint()
         The method will use Math.random() to choose a random hint in a list of 5 and will then return the hint as a string
 
     public String giveARide()
         The method will use Math.random() to determine of the user finds someone to help. Then Math.random() will be used to determine which of three outcomes will
-        occur, they thank you and hint() is run, they rob a certain percentage of your money, they try to steal your horse and you both start fighting. The results of
+        occur, they thank you and giveHint() is run, they rob a certain percentage of your money, they try to steal your horse and you both start fighting. The results of
         this will be added to a variable as a string and then returned. Honor will increase.
 
-    public donatePossible(int x)
-        The method will take an integer x, which is the donation the user is trying to make, and then will check if it is possible with their current amount of money.
+    public boolean isDonatePossible(int donation)
+        The method will take an integer donation, which is the donation the user is trying to make, and then will check if it is possible with their current amount of money.
         If it is possible, the variable money will be updated accordingly.
 
-    public String giveMoneyToThePoor(int x)
-        The method will check the donation is possible using donatePossible(). If it is not the user will be informed, otherwise a certain amount of honor will be granted
-        to the user depending on how much money they decide to donate. There is a small chance before the user can leave they will receive a hint using the hint() method. The
+    public String donateMoney(int donation)
+        The method will check the donation is possible using isDonatePossible(). If it is not the user will be informed, otherwise a certain amount of honor will be granted
+        to the user depending on how much money they decide to donate. There is a small chance before the user can leave they will receive a hint using the giveHint() method. The
         results of everything will be added to a variable and returned.
 
     public String stopAFight()
         The method will use Math.random() to determine the outcome of the user a fight. These outcomes include both walking away upset, you saving one man from the other and getting
-        a hint which will be given using the hint() method, or both men deciding to fight you instead which will run the fight() method. This will increase honor.
+        a hint which will be given using the giveHint() method, or both men deciding to fight you instead which will run the fightGroup() method. This will increase honor. The results
+        are returned in a string.
 
-    public void goodDeed(String s, int m)
-        This method will take a string, s, which will determine which good deed the user wants to do. The three good deeds consist of giving someone a ride
-        home, intervening in a fight, and giving money to the poor. If they decide to donate to the poor, the variable m will dictate how much they donate.
+    public void doAGoodDeed(int choice, int donation)
+        This method will take an int, choice, which will determine which good deed the user wants to do. The three good deeds consist of giving someone a ride
+        home, intervening in a fight, and giving money to the poor. If they decide to donate to the poor, the variable donation will dictate how much they donate.
 
-    public String item(int price, String statAffected, int change, String itemName)
+    public String useItem(int price, String statAffected, int change, String itemName)
         The method will inform the user if they lack the money needed to pay for the item. If they can pay for the item, statAffected will be used to determine which
-        stat will get affected, itemName and change will be used to determine how much the stat that is affected will change. The item name will be used to update the item's
-        corresponding "is bought" method if there is one. If the item has already been bought you are not charged. The results are returned as a string in a variable.
+        stat will get affected, itemName and change will be used to determine how much the stat that is affected will change. The item name will added to itemsBought if needed.
+        If the item has already been bought you are not charged. The results are returned as a string in a variable.
 
-    public String shop(String s)
-        The method will take the variable s, and then run the correct version of the method item() and then return the results of this as a string. The effect the item had on
-        the stats of the character are also added.
+    public String buyItem(String choice)
+        The method will take the variable choice, and then run the correct version of the method useItem() and then return the results of this as a string.
 
-    public void bounty(int price, String member, int gainedHonor)
-        This method checks if the user has already paid a certain bounty and if so that is returned as a string. If they cannot afford the bounty that information is returned
-        to the user. If the user can pay for the bounty, they gain gainedHonor amount of honor and price amount of money is removed from their money. Then the member whose
-        bounty is now paid is stored
+    public String showBountyList()
+        This method will return the bounty list. This list is updated if a bounty is bought or a person has been executed.
 
-    public String end()
+    public String payBounty(int price, String member, int gainedHonor)
+        This method checks if the user has already paid a certain bounty or if the member has been executed and if so that is returned as a string. If they cannot afford
+        the bounty that information is returned to the user. If the user can pay for the bounty, they gain gainedHonor amount of honor and price amount of money is removed
+        from their money. Then the member whose bounty is now paid is stored in bountyInfo.
+
+    public String chooseBounty(int choice)
+        This method will run the correct version of the payBounty() method based on the choice of the user, it will return information about their choice.
+
+    public String executionCheck()
+        This method will check the day the game is on and will return a string about the execution of a certain member based on if the correct day has been reached.
+        bountyInfo will be updated to reflect the execution of a member and stop the player from buying their bounty anyways.
+
+    public String endGame(String endCondition)
         The method will return a string which has details containing the ending of the game. The ending which is selected and displayed will be determined by how many
-        members the user has saved and their honor. There are unique ending for cases such as the user dying due to having no remaining health and the user selecting to
-        end the game.
+        members the user has saved and their honor. If the user dies in battle that is shown instead, if the user decides to end the game early the method will be run.
+        The method knows whether to show the died in battle ending or a normal one using endCondition.
 
 
 WildWestOutlawRunner class
 Step 1: An object of the Scanner class will be made to get user input
-Step 2: The user will asked if they want to play, the program will end if they say no and if they say yes they will be asked to enter a name
-Step 3: An object of the WildWestOutlaw class will be made using the name entered by the user
-Step 4: A while loop will be made and will continue to iterate until the user is dead or doesn't want to play
-Step 5: In the while loop the user will be prompted to enter an input which will be saved as variable action
-Step 6: The variable action will determine if help(), crime(), goodDeed(), or shop() runs
-Step 7: bounty() will run
-Step 8: If the player decides to stop playing, dies, or completes the game, end() will run
+Step 2: An object of the WildWestOutlaw class will be made using the name entered by the user
+Step 3: A while loop will be made and will continue to iterate until the user is dead, ends early, or finishes the game
+Step 4: In the while loop the user will be prompted to enter an input which will be saved as variable action
+Step 5: Based on the variable action more information may be asked and gotten through user input
+Step 6: The day counter is increased if the user decides to commit a crime or do a good deed
+Step 7: The appropriate method of OutlawRedemption will run based on the user input
+Step 8: increaseDay() is run based on the value of day counter
+Step 9: if the day reaches 20, endGame() is run and the loop ends
+Step 10: executionCheck() is run to display execution information if needed

@@ -13,8 +13,8 @@ public class OutlawRedemption {
 
     Images image = new Images();
 
-    public OutlawRedemption (String n){
-        name = n;
+    public OutlawRedemption (String userName){
+        name = userName;
         health = 100;
         maxHealth = 100;
         money = 0;
@@ -73,8 +73,8 @@ public class OutlawRedemption {
         return str;
     }
 
-    public void setHonor(int x){
-        honor += x;
+    public void setHonor(int change){
+        honor += change;
         if (honor > 100){
             honor = 100;
         }
@@ -99,15 +99,15 @@ public class OutlawRedemption {
         return str;
     }
 
-    public String fightGroup(int x){
+    public String fightGroup(int groupSize){
         String str = "";
-        while (x > 0 && !gameOver){
+        while (groupSize > 0 && !gameOver){
             switch ((int) (Math.random() * 3) + 1){
                 case 1 -> str += fightEnemy("Bandit", 50, 1);
                 case 2 -> str += fightEnemy("Law Enforcer", 75, 2);
                 case 3 -> str += fightEnemy("Bounty Hunter", 100, 4);
             }
-            x--;
+            groupSize--;
         }
         return str;
     }
@@ -144,11 +144,11 @@ public class OutlawRedemption {
         return str;
     }
 
-    public String robTrain(String t){
+    public String robTrain(String time){
         String str = image.getRobTrainImage();
         int moneyFound = 0;
         String possibleTimes = "03:00,06:00,09:00,12:00,15:00,18:00,21:00,00:00";
-        if (possibleTimes.contains(t)){
+        if (possibleTimes.contains(time)){
             int random = (int) (Math.random() * 10) + 1;
             str += "   As you approach the railway, you hear the sound of an upcoming train.\n";
             if (random <= 2){
@@ -180,17 +180,17 @@ public class OutlawRedemption {
         return str;
     }
 
-    public String robBank(String t){
+    public String robBank(String time){
         String str = image.getRobBankImage();
         String openTime = "08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00";
         int moneyFound = 0;
         int random = (int) (Math.random() * 10) + 1;
-        if (openTime.contains(t)){
+        if (openTime.contains(time)){
             int x = 0;
-            if (openTime.substring(0, 23).contains(t)){
+            if (openTime.substring(0, 23).contains(time)){
                 x += 2;
             }
-            else if (openTime.substring(23, 53).contains(t)){
+            else if (openTime.substring(23, 53).contains(time)){
                 x += 4;
             }
 
@@ -219,13 +219,13 @@ public class OutlawRedemption {
         return str;
     }
 
-    public String commitCrime(int x, String t){
+    public String commitCrime(int choice, String time){
         String str = "";
-        switch (x){
+        switch (choice){
             case 1 -> str = robStageCoach();
-            case 2 -> str = robTrain(t);
-            case 3 -> str = robBank(t);
-            default -> System.out.print("\n   (One the two is not an acceptable input)");
+            case 2 -> str = robTrain(time);
+            case 3 -> str = robBank(time);
+            default -> System.out.print("\n   (One of the two is not an acceptable input)");
         }
         return str;
     }
@@ -238,7 +238,7 @@ public class OutlawRedemption {
             case 2 -> str += "   The stranger says: Thanks! Your end is affected by the actions you do.\n   You think: What a weirdo.\n";
             case 3 -> str += "   The stranger says: I think some of your buddies are locked up right now. Helping them can make you more honorable.\n";
             case 4 -> str += "   The stranger says: Attempting to do a crime is dishonorable, but not as dishonorable as carrying through with your intentions.\n";
-            case 5 -> str += "   The stranger says: Go touch grass\n   You think: What a weirdo\n";
+            case 5 -> str += "   The stranger says: A friend of mine at the train station says they come every three hours\n";
         }
         return str;
     }
@@ -272,23 +272,23 @@ public class OutlawRedemption {
         return str;
     }
 
-    public boolean isDonatePossible(int x){
-        money -= (x <= money) ? x : 0;
-        return x <= money;
+    public boolean isDonatePossible(int donation){
+        money -= (donation <= money) ? donation : 0;
+        return donation <= money;
     }
 
-    public String donateMoney(int x){
+    public String donateMoney(int donation){
         String str = "";
-        if (isDonatePossible(x)){
-            str += image.getDonateMoneyImage() + "\n   You choose to donate " + x + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
+        if (isDonatePossible(donation)){
+            str += image.getDonateMoneyImage() + "\n   You choose to donate " + donation + " dollars to those in need. Gratitude and honor light up the faces of the recipients as they express heartfelt thanks.";
             str += "\n   Their eyes reflect a mix of surprise and appreciation for the unexpected act of kindness.";
-            if (x > 10000){
+            if (donation > 10000){
                 setHonor(10);
             }
-            else if (x > 1000){
+            else if (donation > 1000){
                 setHonor(5);
             }
-            else if (x > 100){
+            else if (donation > 100){
                 setHonor(3);
             }
             else {
@@ -322,11 +322,11 @@ public class OutlawRedemption {
         return str;
     }
 
-    public String doAGoodDeed(int x, int m){
+    public String doAGoodDeed(int choice, int donation){
         String str = "";
-        switch (x){
+        switch (choice){
             case 1 -> str = giveARide();
-            case 2 -> str = donateMoney(m);
+            case 2 -> str = donateMoney(donation);
             case 3 -> str = stopAFight();
         }
         return str;
@@ -389,13 +389,13 @@ public class OutlawRedemption {
         return str;
     }
 
-    public String buyItem(String s){
+    public String buyItem(String choice){
         String str = "";
         int preHealth = health;
         int preDamage = damage;
         int preMaxHealth = maxHealth;
 
-        switch (s) {
+        switch (choice) {
             case "Apple" -> str += useItem(10, "health", 15, "Apple");
             case "Loaf of Bread" -> str += useItem(20, "health", 45, "Loaf of Bread");
             case "Steak" -> str += useItem(35, "health", 90, "Steak");
@@ -413,10 +413,10 @@ public class OutlawRedemption {
         if (str.equals("   You do not have enough money to buy that item.") || str.equals("   That is not an item on the catalogue")){
             str += "";
         }
-        else if (s.equals("Apple") || s.equals("Loaf of Bread") || s.equals("Steak")){
+        else if (choice.equals("Apple") || choice.equals("Loaf of Bread") || choice.equals("Steak")){
             str += "\n   Your previous health was " + preHealth + ".\n   Your current health is " + health + ".";
         }
-        else if (s.equals("Cloth armor") || s.equals("Sturdy armor") || s.equals("Medieval armor")){
+        else if (choice.equals("Cloth armor") || choice.equals("Sturdy armor") || choice.equals("Medieval armor")){
             str += "\n   Your previous max health was " + preMaxHealth + ".\n   Your current health is " + maxHealth + ".";
         }
         else {
@@ -463,9 +463,9 @@ public class OutlawRedemption {
         return str;
     }
 
-    public String chooseBounty(int x){
+    public String chooseBounty(int choice){
         String str = "";
-        switch (x){
+        switch (choice){
             case 1 -> str += payBounty(1250, "Member 1", 25);
             case 2 -> str += payBounty(7500, "Member 2", 35);
             case 3 -> str += payBounty(25000, "Member 3", 50);
@@ -502,12 +502,12 @@ public class OutlawRedemption {
         return str + "\n";
     }
 
-    public String endGame(String x){
+    public String endGame(String endCondition){
         String str = "";
-        if (x.equals("died in battle")) {
+        if (endCondition.equals("died in battle")) {
             str += "\n                                                                You died fighting";
         }
-        if (x.equals("ended early") || x.equals("day20")) {
+        if (endCondition.equals("ended early") || endCondition.equals("day20")) {
             if (honor <= -50){
                 switch (saved){
                     case 0 -> str = """

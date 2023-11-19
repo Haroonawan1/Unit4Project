@@ -50,9 +50,6 @@ public class OutlawRedemptionRunner {
                         String item = s.nextLine();
                         System.out.print(outlaw.buyItem(item) + "\n\n   Would you like to keep on shopping (y/n): ");
                         keepShopping = s.nextLine();
-                        if (!keepShopping.equals("n") || !keepShopping.equals("y")){
-                            System.out.print("\n   (That was not an acceptable input)");
-                        }
                     }
                 }
                 case "4" -> {
