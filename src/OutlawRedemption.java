@@ -40,7 +40,7 @@ public class OutlawRedemption {
      * This constructor has a default name instead of a custom one.
      */
     public OutlawRedemption (){
-        name = "Outlaw";
+        name = "anon";
         health = 100;
         maxHealth = 100;
         money = 0;
@@ -106,6 +106,15 @@ public class OutlawRedemption {
      */
     public int getDay(){
         return day;
+    }
+
+    /**
+     * The getName method allows the instance variable name to be checked outside the class
+     *
+     * @return returns the value of name, which is a String
+     */
+    public String getName(){
+        return name;
     }
 
     /**

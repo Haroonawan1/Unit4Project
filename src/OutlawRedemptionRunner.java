@@ -3,14 +3,14 @@ import java.util.Scanner;
 public class OutlawRedemptionRunner {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        System.out.print("   What is your name: ");
+        System.out.print("   What is your name (nothing for no name): ");
         String name = s.nextLine();
-        OutlawRedemption outlaw = new OutlawRedemption(name);
+        OutlawRedemption outlaw = (name.isEmpty()) ? new OutlawRedemption() : new OutlawRedemption(name);
         Images image = new Images();
         int dayCounter = 0;
 
         System.out.println("__________________________________________________________________________| Wild West Outlaw |_____________________________________________________________________________");
-        System.out.println("   You, " + name + ", are part of an outlaw group that has recently been torn apart due to a heist gone wrong\n   and now you need to pay off the bounties of the members that have been caught before they are executed.\n   Gather money, buy upgrades, and help those in town, but keep an eye on your time as you are on the clock.\n");
+        System.out.println("   You, " + outlaw.getName() + ", are part of an outlaw group that has recently been torn apart due to a heist gone wrong\n   and now you need to pay off the bounties of the members that have been caught before they are executed.\n   Gather money, buy upgrades, and help those in town, but keep an eye on your time as you are on the clock.\n");
 
         while(!outlaw.isGameOver()){
             System.out.print("   Actions (Days left " + (31 - outlaw.getDay()) + "):\n   1) Commit a crime\n   2) Help someone in need\n   3) View the store's catalogue\n   4) Check the jail\n   5) Check your stats\n   6) Help\n   7) Give up\n   > ");

@@ -38,6 +38,9 @@ Methods:
     public int getDay()
         The method returns the current day.
 
+    public String getName()
+        The method returns the name of the character.
+
     public void increaseDay()
         The method increases the value of day by one if dayCounter is even and then increases dayCounter by 1.
 
