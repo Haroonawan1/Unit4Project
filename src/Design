@@ -5,9 +5,10 @@ Instance Variables:
     private int health - this variable represents the health of the character the user controls
     private int maxHealth - this variable represents the max health of the character the user controls
     private int money - this variable represents the money of the character the user controls
-    private int honor - this variable represents how honorable the character the uer controls is
+    private int honor - this variable represents how honorable the character the user controls is
     private int day - this variable represents the current day
-    private int saved - this variable represents how many gang members have been saved
+    private int dayCounter - this variable represents the value of a counter which is used to determine when to increase the day
+    private int peopleSaved - this variable represents how many gang members have been saved
     private boolean gameOver - this variable represents if the game should end or not
     private int damage - this variable represents the current damage the user does
     private String itemsBought - this variable represents all the items the user has already bought so that they are not
@@ -15,10 +16,14 @@ Instance Variables:
     private String bountyInfo - this variable represents all the information about bounties that needs to be checked
                                 such as if they are executed and if the user has already paid for a certain bounty
 
-Constructor:
+Constructors:
     public WildWestOutlaw(String userName)
         The constructor will take userName and assign it to the instance variable name. It will then assign a default value to the variable health, maxHealth, money, honor,
-        day, saved, and gameOver. All "member saved" variables and "bought" variables will be set to false.
+        day, dayCounter, peopleSaved, and gameOver. All "member saved" variables and "bought" variables will be set to false.
+
+    public WildWestOutlaw()
+        The constructor will assign a default value to the variable name, health, maxHealth, money, honor, day, dayCounter, peopleSaved, and gameOver. All "member saved"
+        variables and "bought" variables will be set to false.
 
 Methods:
     public boolean isInputNumerical(String input)
@@ -34,7 +39,7 @@ Methods:
         The method returns the current day.
 
     public void increaseDay()
-        The method increases the current day by one.
+        The method increases the value of day by one if dayCounter is even and then increases dayCounter by 1.
 
     public String getStats()
         The method returns the current stats of the character. These stats include health, maxHealth, money, honor, damage, and saved.
@@ -120,6 +125,9 @@ Methods:
         This method will check the day the game is on and will return a string about the execution of a certain member based on if the correct day has been reached.
         bountyInfo will be updated to reflect the execution of a member and stop the player from buying their bounty anyways.
 
+    public String toString()
+        This method will print once the game has ended and will compare the user's stats to my best stats so they can have a comparison
+
     public String endGame(String endCondition)
         The method will return a string which has details containing the ending of the game. The ending which is selected and displayed will be determined by how many
         members the user has saved and their honor. If the user dies in battle that is shown instead, if the user decides to end the game early the method will be run.
@@ -134,6 +142,6 @@ Step 4: In the while loop the user will be prompted to enter an input which will
 Step 5: Based on the variable action more information may be asked and gotten through user input
 Step 6: The day counter is increased if the user decides to commit a crime or do a good deed
 Step 7: The appropriate method of OutlawRedemption will run based on the user input
-Step 8: increaseDay() is run based on the value of day counter
+Step 8: increaseDay() is run which action the user decided on
 Step 9: if the day reaches 20, endGame() is run and the loop ends
 Step 10: executionCheck() is run to display execution information if needed

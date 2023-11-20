@@ -5,7 +5,8 @@ public class OutlawRedemption {
     private int money;
     private int honor;
     private int day;
-    private int saved;
+    private int dayCounter;
+    private int peopleSaved;
     private boolean gameOver;
     private int damage;
     private String itemsBought;
@@ -26,7 +27,27 @@ public class OutlawRedemption {
         money = 0;
         honor = 0;
         day = 1;
-        saved = 0;
+        dayCounter = 0;
+        peopleSaved = 0;
+        gameOver = false;
+        damage = 10;
+        itemsBought = "";
+        bountyInfo = "";
+    }
+
+    /**
+     * Constructor for the OutlawRedemption class. This creates a new instance of the OutlawRedemption class with the below parameters.
+     * This constructor has a default name instead of a custom one.
+     */
+    public OutlawRedemption (){
+        name = "Outlaw";
+        health = 100;
+        maxHealth = 100;
+        money = 0;
+        honor = 0;
+        day = 1;
+        dayCounter = 0;
+        peopleSaved = 0;
         gameOver = false;
         damage = 10;
         itemsBought = "";
@@ -88,10 +109,11 @@ public class OutlawRedemption {
     }
 
     /**
-     * The increaseDay method increases the value of day by one
+     * The increaseDay method increases the value of day by one if dayCounter is even and then increases dayCounter by 1
      */
     public void increaseDay(){
-        day++;
+        day += (dayCounter % 2 == 0) ? 1: 0;
+        dayCounter++;
     }
 
     /**
@@ -104,7 +126,7 @@ public class OutlawRedemption {
         String str = "\n   ____________________________";
         str += "\n    Your current statistics:\n";
         str += "    Health: " + health + "/" + maxHealth + "\n";
-        str += "    Money: " + money + "\n    Honor: " + honor + "\n    Damage: " + damage + "\n    People Saved: " + saved;
+        str += "    Money: " + money + "\n    Honor: " + honor + "\n    Damage: " + damage + "\n    People Saved: " + peopleSaved;
         str += "\n   ____________________________";
         return str;
     }
@@ -125,7 +147,8 @@ public class OutlawRedemption {
     }
 
     /**
-     * The fightEnemy method simulates a fight between the character of the user and an enemy
+     * The fightEnemy method simulates a fight between the character of the user and an enemy using the given information
+     * about the enemy
      *
      * @param name represents the name of the enemy being fought
      * @param enemyHealth - represents the health of the enemy being fought
@@ -169,8 +192,10 @@ public class OutlawRedemption {
     }
 
     /**
+     * The robStageCoach method simulates the player attempting to rob a stagecoach. There a few outcomes that may occur,
+     * the one that occurs is added to a String
      *
-     * @return
+     * @return returns a String that contains all results from attempting to rob a stagecoach
      */
     public String robStageCoach(){
         String str = image.getRobStageCoachImage();
@@ -204,6 +229,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The robTrain method simulates the attempted robbery of a train by the user, there are different outcomes that may
+     * occur in addition to differences that occur due to the time selected. The results are added to a String.
+     *
+     * @param time represents the time the user will attempt to rob a train
+     * @return returns a String that contains all the results about the attempted train robbery
+     */
     public String robTrain(String time){
         String str = image.getRobTrainImage();
         int moneyFound = 0;
@@ -240,6 +272,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The robTrain method simulates the attempted robbery of a bank by the user, there are different outcomes that may
+     * occur in addition to differences that occur due to the time selected. The results are added to a String.
+     *
+     * @param time represents the time the user will attempt to rob a bank
+     * @return returns a String that contains all the results about the attempted bank robbery
+     */
     public String robBank(String time){
         String str = image.getRobBankImage();
         String openTime = "08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00";
@@ -279,6 +318,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The commitCrime method allows the user to select which crime they want to commit, then runs the appropriate method
+     *
+     * @param choice represents what crime the user wants to attempt
+     * @param time represents what time the user will attempt the crime
+     * @return returns a String that contains all the results of the crime attempted
+     */
     public String commitCrime(int choice, String time){
         String str = "";
         switch (choice){
@@ -290,6 +336,11 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The giveHint method will give the user a hint about how the game works when they decide to do good deeds
+     *
+     * @return returns a String that contains a hint about how the game works
+     */
     public String giveHint(){
         String str = "";
         int random = (int) (Math.random() * 5) + 1;
@@ -303,6 +354,11 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The giveARide method simulates the user's attempt to find someone in need of a ride home and giving it to them
+     *
+     * @return returns a String that contains the results of the user's attempt to help someone in need
+     */
     public String giveARide(){
         String str = "";
         if ((int) (Math.random() * 10) + 1 >= 6){
@@ -332,11 +388,24 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The isDonatePossible method checks if the donation the user wants to give is possible given the amount of money
+     * they have. If it is possible, the money is taken
+     *
+     * @param donation represents the donation the user is attempting to donate
+     * @return returns a boolean value for if the donation is possible or not
+     */
     public boolean isDonatePossible(int donation){
         money -= (donation <= money) ? donation : 0;
         return donation <= money;
     }
 
+    /**
+     * The donateMoney method will inform the user of their attempts to donate money to teh poor using a String
+     *
+     * @param donation represents the donation the user wants to attempt
+     * @return returns a String with the results of the user's attempted donation
+     */
     public String donateMoney(int donation){
         String str = "";
         if (isDonatePossible(donation)){
@@ -365,6 +434,12 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The stopAFight method simulates the user stopping a fight going on in town. This has multiple outcomes and the results
+     * of their attempt are stored on a String
+     *
+     * @return returns a String with the results of stopping a fight
+     */
     public String stopAFight(){
         String str = image.getStopAFightImage() + "\n   Amidst the sunlit street, the distant murmur of laughter gives way to a brewing brawl. You, maybe compelled by a sense of duty, stride toward the commotion.";
         str += "\n   Dust swirls in the air as the two men fight and you can barely tell who is winning, but it doesn't matter as you walk toward the center of the scene.";
@@ -382,6 +457,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The doAGoodDeed method allows the user to select which good deed they want to do, then runs the appropriate method
+     *
+     * @param choice represents which good deed the user wants to do
+     * @param donation represents how much the user wants to donate
+     * @return returns a String with the results of the good deed the user choose to do
+     */
     public String doAGoodDeed(int choice, int donation){
         String str = "";
         switch (choice){
@@ -392,6 +474,16 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The useItem method takes in the given information about an item and then determines the effect that item has on
+     * the user if they are even able to purchase it
+     *
+     * @param price represents the price of the item
+     * @param statAffected represents which stat of the character is affected by the item
+     * @param change represent how much of a change is made to the stat affected
+     * @param itemName represents the name of the item the user is trying to buy
+     * @return returns a String, which only has content if the user cannot purchase the item
+     */
     public String useItem(int price, String statAffected, int change, String itemName){
         String str = "";
         if (price >= money){
@@ -449,6 +541,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The buyItem method takes the name of the item the user wants to purchase and then runs teh appropriate version of
+     * the useItem method. Then it informs the user of the effect that item had on their character
+     *
+     * @param choice represents which item the user wants to buy from the shop
+     * @return returns a String that contains the results of their purchase and the effect the item had on their character
+     */
     public String buyItem(String choice){
         String str = "";
         int preHealth = health;
@@ -485,6 +584,12 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The showBountyList method references the bountyInfo instance variable and uses the words in that String to determine
+     * which version of the bounty list to print based on what had happened in the game so far
+     *
+     * @return returns a String which is the bounty list
+     */
     public String showBountyList(){
         String str = "   _____________________________________\n   |  Open Bounties:                   |\n";
         str += bountyInfo.contains("Member 1") ? "   | Member 1         -           PAID |\n" : (bountyInfo.contains("Member dead1") ? "   | Member 1         -       EXECUTED |\n" :  "   | Member 1         -   1250 dollars |\n");
@@ -495,6 +600,15 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The payBounty method references the instance variable bountyInfo and money to determine if the user can buy the
+     * bounty of the member he is trying to buy
+     *
+     * @param price represents the price of the member
+     * @param member represents the name of the member
+     * @param gainedHonor represents how much honor the user gains from buying the bounty of the member
+     * @return returns a String containing the results of the user's attempt to buy the bounty of a member
+     */
     public String payBounty(int price, String member, int gainedHonor){
         String str = "";
         if ((bountyInfo.contains(member))){
@@ -511,7 +625,7 @@ public class OutlawRedemption {
                 str += "   You buy the bounty of " + member + ", he is very happy. You become more honorable";
                 money -= price;
                 changeHonor(gainedHonor);
-                saved++;
+                peopleSaved++;
                 switch (member){
                     case "Member 1" -> bountyInfo += "Member 1";
                     case "Member 2" -> bountyInfo += "Member 2";
@@ -523,6 +637,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The chooseBounty method allows the user to choose a bounty of pay off, it then runs the appropriate version of
+     * the payBounty method
+     *
+     * @param choice represents which bounty the user wants to pay off
+     * @return returns a String with the results of the user's attempt to pay a bounty
+     */
     public String chooseBounty(int choice){
         String str = "";
         switch (choice){
@@ -534,6 +655,13 @@ public class OutlawRedemption {
         return str;
     }
 
+    /**
+     * The executionCheck method checks if a member should be executed based on the day and then informs the user of
+     * their execution white remembering the character has been executed by adding to the instance variable bountyInfo
+     *
+     * @param dayCounter represents the value of the dayCounter variable located in the Runner class
+     * @return returns a String detailing the execution of a certain member
+     */
     public String executionCheck(int dayCounter){
         String str = "";
         if (!bountyInfo.contains("Member 1") && day == 9){
@@ -562,6 +690,25 @@ public class OutlawRedemption {
         return str + "\n";
     }
 
+    /**
+     * The toString will print once the game has ended and will compare the user's stats to my best stats to give users
+     * something to compare too
+     *
+     * @return returns a String comparing my best stats with the user's current stats
+     */
+    public String toString() {
+        String str = "\n   ____________________________\n    My best stats:\n    Health: 255/255\n    Money: 34527\n    Honor: 100\n    Damage: 100\n    People Saved: 3";
+        str += getStats() + "\n    How did you do?";
+        return str;
+    }
+
+    /**
+     * The endGame method will return a specific ending based on the user's honor and how many people they have saved. The
+     * value of endCondition is used to determine what type of ending to display
+     *
+     * @param endCondition represents under what condition the game has ended
+     * @return returns a String detailing the end of the character's journey
+     */
     public String endGame(String endCondition){
         String str = "";
         if (endCondition.equals("died in battle")) {
@@ -569,7 +716,7 @@ public class OutlawRedemption {
         }
         if (endCondition.equals("ended early") || endCondition.equals("day20")) {
             if (honor <= -50){
-                switch (saved){
+                switch (peopleSaved){
                     case 0 -> str = """
                            The Forsaken Path
                            - Honor: Low, Gang Members Saved: 0
@@ -610,7 +757,7 @@ public class OutlawRedemption {
                 }
             }
             if (-50 < honor && honor < 50){
-                switch (saved){
+                switch (peopleSaved){
                     case 0 -> str = """
                            A Tarnished Legacy
                            - Honor: Medium, Gang Members Saved: 0
@@ -652,7 +799,7 @@ public class OutlawRedemption {
                 }
             }
             if (honor >= 50){
-                switch (saved){
+                switch (peopleSaved){
                     case 0 -> str = """
                            An Honorable End
                            - Honor: High, Gang Members Saved: 0
@@ -699,6 +846,7 @@ public class OutlawRedemption {
         }
         str += "\n                                                             This concludes the legend of " + name;
         str += "\n___________________________________________________________________________________________________________________________________________________________________________";
+        str += "\n\n" + toString();
         return str;
     }
 }

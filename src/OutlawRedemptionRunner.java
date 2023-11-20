@@ -22,7 +22,7 @@ public class OutlawRedemptionRunner {
                     System.out.print("\n   What time will you attempt this: \n   (hours only, military time, example: 09:00)\n   > ");
                     String time = s.nextLine();
                     System.out.print((outlaw.isInputNumerical(robberyChoice)) ? "\n" + outlaw.commitCrime(Integer.parseInt(robberyChoice), time) : "\n   (The first input must be a number)");
-                    dayCounter++;
+                    outlaw.increaseDay();
                 }
                 case "2" -> {
                     System.out.print("\n   What good deed do you want to attempt\n   - 1 for giving someone a ride home\n   - 2 for donating money to the poor\n   - 3 for stopping a fight\n   > ");
@@ -40,7 +40,7 @@ public class OutlawRedemptionRunner {
                     else {
                         System.out.println("\n   (You must input a numerical value)");
                     }
-                    dayCounter++;
+                    outlaw.increaseDay();
                 }
                 case "3" -> {
                     System.out.println(image.getCatalogueImage());
@@ -77,9 +77,7 @@ public class OutlawRedemptionRunner {
                 case "7" -> System.out.println("\n" + outlaw.endGame("ended early"));
                 default -> System.out.print("\n   (That is not an acceptable input)");
             }
-            if (dayCounter % 2 == 0){
-                outlaw.increaseDay();
-            }
+
             if (outlaw.getDay() == 21){
                 System.out.println("\n" + outlaw.endGame("day20"));
             }

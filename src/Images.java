@@ -1,6 +1,14 @@
 public class Images {
+    /**
+     * The Images constructor does not take any parameters or assign any values to any instance variables
+     */
     public Images () {}
 
+    /**
+     * The getCatalogueImage method is used to access the image of the catalogue
+     *
+     * @return returns a String that contains the image of the catalogue
+     */
     public String getCatalogueImage(){
         return """
                                                                          ,,,,,,gggggggggggg,,,                                                       ,,,,,,,,,,,
@@ -49,6 +57,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getJailImage method is used to access the image of a man in jail
+     *
+     * @return returns a String that contains the image of a man in jail
+     */
     public String getJailImage(){
         return """
                                                         ^YJ^~^G7?P~                                                                                   ^?57^GG^GG~                                \s
@@ -95,6 +108,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getRobStageCoachImage method is used to access an image of a stagecoach
+     *
+     * @return returns a String that contains an image of a stagecoach
+     */
     public String getRobStageCoachImage(){
         return """
                                                                                            ..                                                                        \s
@@ -133,6 +151,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getRobTrainImage method is used to access an image of a train
+     *
+     * @return returns a String that contains an image of a train
+     */
     public String getRobTrainImage(){
         return """
                                                                                                       .............                                                  \s
@@ -189,6 +212,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getRobBankImage method is used to access an image of some gold
+     *
+     * @return returns a String that contains an image of some gold
+     */
     public String getRobBankImage(){
         return """
                                                                                                                            .~!!!!!!!!!~~~~^^^:::...                                           \s
@@ -233,6 +261,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getGiveARideImage method is used to access an image of giving someone a ride
+     *
+     * @return returns a String that contains an image of giving someone a ride
+     */
     public String getGiveARideImage(){
         return """
                    ??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
@@ -287,6 +320,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getGiveARideImage2 method is used to access an image of riding alone
+     *
+     * @return returns a String that contains an image of riding alone
+     */
     public String getGiveARideImage2(){
         return """
                                                                                                                                                                      \s
@@ -336,6 +374,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getDonateMoneyImage method is used to access an image of giving a donation
+     *
+     * @return returns a String that contains an image of giving a donation
+     */
     public String getDonateMoneyImage(){
         return """
                                                                                                                                 ?^                                      \s
@@ -393,6 +436,11 @@ public class Images {
                 """;
     }
 
+    /**
+     * The getStopAFightImage method is used to access an image of people fighting
+     *
+     * @return returns a String that contains an image of people fighting
+     */
     public String getStopAFightImage(){
         return """
                                                                                                               ?      ~?:   J.                                        \s
