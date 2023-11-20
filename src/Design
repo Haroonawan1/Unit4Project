@@ -83,7 +83,7 @@ Methods:
         The method will use Math.random() to choose a random hint in a list of 5 and will then return the hint as a string
 
     public String giveARide()
-        The method will use Math.random() to determine of the user finds someone to help. Then Math.random() will be used to determine which of three outcomes will
+        The method will use Math.random() to determine if the user finds someone to help. Then Math.random() will be used to determine which of three outcomes will
         occur, they thank you and giveHint() is run, they rob a certain percentage of your money, they try to steal your horse and you both start fighting. The results of
         this will be added to a variable as a string and then returned. Honor will increase.
 
@@ -97,7 +97,7 @@ Methods:
         results of everything will be added to a variable and returned.
 
     public String stopAFight()
-        The method will use Math.random() to determine the outcome of the user a fight. These outcomes include both walking away upset, you saving one man from the other and getting
+        The method will use Math.random() to determine the outcome of the user stopping a fight. These outcomes include both walking away upset, you saving one man from the other and getting
         a hint which will be given using the giveHint() method, or both men deciding to fight you instead which will run the fightGroup() method. This will increase honor. The results
         are returned in a string.
 
@@ -107,7 +107,7 @@ Methods:
 
     public String useItem(int price, String statAffected, int change, String itemName)
         The method will inform the user if they lack the money needed to pay for the item. If they can pay for the item, statAffected will be used to determine which
-        stat will get affected, itemName and change will be used to determine how much the stat that is affected will change. The item name will added to itemsBought if needed.
+        stat will get affected, itemName and change will be used to determine how much the stat that is affected will change. The item name will be added to itemsBought if needed.
         If the item has already been bought you are not charged. The results are returned as a string in a variable.
 
     public String buyItem(String choice)
@@ -116,7 +116,7 @@ Methods:
     public String showBountyList()
         This method will return the bounty list. This list is updated if a bounty is bought or a person has been executed.
 
-    public String payBounty(int price, String member, int gainedHonor)
+    public String payBounty(int price, String memberName, int gainedHonor)
         This method checks if the user has already paid a certain bounty or if the member has been executed and if so that is returned as a string. If they cannot afford
         the bounty that information is returned to the user. If the user can pay for the bounty, they gain gainedHonor amount of honor and price amount of money is removed
         from their money. Then the member whose bounty is now paid is stored in bountyInfo.
@@ -136,6 +136,20 @@ Methods:
         members the user has saved and their honor. If the user dies in battle that is shown instead, if the user decides to end the game early the method will be run.
         The method knows whether to show the died in battle ending or a normal one using endCondition.
 
+
+Images class
+- This class has an empty constructor that serves no purpose
+- It is made of methods that do nothing besides return ASCII images, Strings, so they do not clutter up my actual code
+- The methods are
+    - getCatalogueImage
+    - getJailImage
+    - getRobStageCoachImage
+    - getRobTrainImage
+    - getRobBankImage
+    - getGiveARideImage
+    - getGiveARideImage2
+    - getDonateMoneyImage
+    - getStopAFightImage
 
 WildWestOutlawRunner class
 Step 1: An object of the Scanner class will be made to get user input

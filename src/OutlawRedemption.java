@@ -61,6 +61,7 @@ public class OutlawRedemption {
      * @return returns a boolean regarding if the input is numerical
      */
     public boolean isInputNumerical(String input){
+        //If the input is not numerical, the Integer.parseInt() method will error
         try {
             Integer.parseInt(input);
             return true;
@@ -171,7 +172,7 @@ public class OutlawRedemption {
             health -= enemyDamage;
         }
         if (enemyHealth <= 0){
-            str += "   You won your fight against the " + name + "!\n   Remaining Health: " + health + "\n";
+            str += "   You murdered a " + name + "!\n   Remaining Health: " + health + "\n";
         }
         if (health <= 0){
             str += endGame("died in battle");
@@ -190,6 +191,7 @@ public class OutlawRedemption {
     public String fightGroup(int groupSize){
         String str = "";
         while (groupSize > 0 && !gameOver){
+            //Decided to use switch blocks some place instead of if statements in order to have neater code and try out something new
             switch ((int) (Math.random() * 3) + 1){
                 case 1 -> str += fightEnemy("Bandit", 50, 1);
                 case 2 -> str += fightEnemy("Law Enforcer", 75, 2);
@@ -502,6 +504,9 @@ public class OutlawRedemption {
             str += "\n   (You already bought this item and were not charged, duplicate armors and weapons cannot be obtained)";
         }
         else {
+            //Change is only used for health because healing items can be bought multiple times, therefore I did not need to
+            //add unique item names and so use the change variable, there should be a better way to do this, but I did not
+            //attempt to find it
             if (statAffected.equals("health")){
                 health = Math.min(health + change, maxHealth);
             }
@@ -600,6 +605,7 @@ public class OutlawRedemption {
      * @return returns a String which is the bounty list
      */
     public String showBountyList(){
+        //I use a shorthand for an if - elseif - else block here to try out something new, this is equivalent to doing so otherwise
         String str = "   _____________________________________\n   |  Open Bounties:                   |\n";
         str += bountyInfo.contains("Member 1") ? "   | Member 1         -           PAID |\n" : (bountyInfo.contains("Member dead1") ? "   | Member 1         -       EXECUTED |\n" :  "   | Member 1         -   1250 dollars |\n");
         str += bountyInfo.contains("Member 2") ? "   | Member 2         -           PAID |\n" : (bountyInfo.contains("Member dead2") ? "   | Member 2         -       EXECUTED |\n" :  "   | Member 2         -   7500 dollars |\n");
@@ -614,16 +620,18 @@ public class OutlawRedemption {
      * bounty of the member he is trying to buy
      *
      * @param price represents the price of the member
-     * @param member represents the name of the member
+     * @param memberName represents the name of the member
      * @param gainedHonor represents how much honor the user gains from buying the bounty of the member
      * @return returns a String containing the results of the user's attempt to buy the bounty of a member
      */
-    public String payBounty(int price, String member, int gainedHonor){
+    public String payBounty(int price, String memberName, int gainedHonor){
         String str = "";
-        if ((bountyInfo.contains(member))){
+        if ((bountyInfo.contains(memberName))){
             str += "   You have already paid this bounty";
         }
-        else if (bountyInfo.contains(member.substring(0, 7) + "dead" + member.substring(7))){
+        //A member is remembered as executed by using a format, memberdead1, where 1 can be any number
+        //this condition turns the name of the member and puts it into that format
+        else if (bountyInfo.contains(memberName.substring(0, 7) + "dead" + memberName.substring(7))){
             str += "   This character has been executed";
         }
         else {
@@ -631,11 +639,11 @@ public class OutlawRedemption {
                 str += "   You do not have enough money to pay off this bounty";
             }
             else {
-                str += "   You buy the bounty of " + member + ", he is very happy. You become more honorable";
+                str += "   You buy the bounty of " + memberName + ", he is very happy. You become more honorable";
                 money -= price;
                 changeHonor(gainedHonor);
                 peopleSaved++;
-                switch (member){
+                switch (memberName){
                     case "Member 1" -> bountyInfo += "Member 1";
                     case "Member 2" -> bountyInfo += "Member 2";
                     case "Member 3" -> bountyInfo += "Member 3";
